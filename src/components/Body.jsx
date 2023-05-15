@@ -16,11 +16,15 @@ const Body = () => {
     }
 
     function handleClick() {
-        setListItems(listItems.concat(input))
+        setListItems([...listItems, input])
         setInput('')
 
     }
-    const items = listItems.map((i) => <li key={i}>{i}</li>)
+    function removeItem(index) {
+        setListItems(listItems.filter((f, i) => i != index))
+    }
+
+    const items = listItems.map((i, index) => <li key={i} onClick={() => removeItem(index)}>{i}</li>)
     return (
         <>
             <input type="text" value={input} onChange={handleChange} placeholder="Type somenthing to do" onSubmit={getValue} />
