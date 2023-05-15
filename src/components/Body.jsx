@@ -3,42 +3,32 @@ import React from "react";
 
 const Body = () => {
 
-    const [input, setInput] = useState([]);
-    const [list, setList] = useState('');
-    const [x, setX] = useState(0);
-    const keepMessages = []
+    const [input, setInput] = useState("");
+    const [listItems, setListItems] = useState([]);
 
 
-    function whenChanges(e) {
+    function handleChange(e) {
         setInput(e.target.value)
     }
 
     function getValue() {
         value = document.querySelector('input').value;
-
     }
 
-    function handleSubmit() {
-        event.preventDefault();
-        setList(input)
+    function handleClick() {
+        setListItems(listItems.concat(input))
         setInput('')
-        setX(x + 1)
-        keepMessages[x] = input
-        console.log(keepMessages)
 
     }
+    const items = listItems.map((i) => <li key={i}>{i}</li>)
     return (
         <>
-            <form onSubmit={handleSubmit}>
-                <input type="text" value={input} onChange={whenChanges} placeholder="Type somenthing to do" onSubmit={getValue} />
-                <input type="submit" value="Add" />
-            </form>
+            <input type="text" value={input} onChange={handleChange} placeholder="Type somenthing to do" onSubmit={getValue} />
+            <button onClick={handleClick}>Add</button>
             <ul style={{ listStyleType: "none" }}>
-
-                <li>{list}</li>
+                {items}
             </ul>
         </>
     )
-
 }
 export { Body }
