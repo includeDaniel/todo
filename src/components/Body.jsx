@@ -2,9 +2,6 @@ import { useState } from "react";
 import React from "react";
 import "../css/Body.css";
 
-
-
-
 const Body = () => {
 
     const [input, setInput] = useState("");
@@ -39,8 +36,21 @@ const Body = () => {
         }
     }
 
+    function toggleStatus(index) {
+        listItems.map((value, i) => {
+
+            if (index == i) {
+                const status = value.status === "active" ? "completed" : "active"
+                return { ...value, status }
+            }
+            return value
+
+        })
+    }
+
     const items = listItems.map((i, index) => (
         <div className="ClassItem">
+            <button onClick={toggleStatus}>O</button>
             <li key={i}>{i}</li>
             <button className="DeleteButton" onClick={() => removeItem(index)}>x</button>
         </div>))
