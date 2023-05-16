@@ -7,8 +7,6 @@ const Body = () => {
     const [input, setInput] = useState("");
     const [listItems, setListItems] = useState([]);
 
-
-
     function handleChange(e) {
         setInput(e.target.value)
     }
@@ -18,8 +16,7 @@ const Body = () => {
     }
 
     function handleClick() {
-        event.preventDefault()
-        setListItems([...listItems, input])
+        setListItems([...listItems, { value: input, status: "active" }])
         setInput('')
 
 
@@ -37,21 +34,22 @@ const Body = () => {
     }
 
     function toggleStatus(index) {
-        listItems.map((value, i) => {
-
+        setListItems(listItems.map((value, i) => {
             if (index == i) {
                 const status = value.status === "active" ? "completed" : "active"
                 return { ...value, status }
             }
+            console.log(value)
             return value
 
-        })
+        }))
     }
 
     const items = listItems.map((i, index) => (
-        <div className="ClassItem">
-            <button onClick={toggleStatus}>O</button>
-            <li key={i}>{i}</li>
+        <div key={i.value} className="ClassItem">
+            <button onClick={() => toggleStatus(index)}>O</button>
+            <li>{i.value}</li>
+            <li>{i.status}</li>
             <button className="DeleteButton" onClick={() => removeItem(index)}>x</button>
         </div>))
 
