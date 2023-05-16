@@ -2,10 +2,14 @@ import { useState } from "react";
 import React from "react";
 import "../css/Body.css";
 
+
+
+
 const Body = () => {
 
     const [input, setInput] = useState("");
     const [listItems, setListItems] = useState([]);
+
 
 
     function handleChange(e) {
@@ -21,10 +25,14 @@ const Body = () => {
         setListItems([...listItems, input])
         setInput('')
 
+
     }
     function removeItem(index) {
+
         setListItems(listItems.filter((f, i) => i != index))
+
     }
+
     const handleKeyDown = (e) => {
         if (e.key === 'Enter') {
             handleClick()
@@ -36,6 +44,7 @@ const Body = () => {
             <li key={i}>{i}</li>
             <button className="DeleteButton" onClick={() => removeItem(index)}>x</button>
         </div>))
+
     return (
         <div className="Wrapper">
             <div className="Form">
@@ -48,6 +57,9 @@ const Body = () => {
                 <ul style={{ listStyleType: "none" }}>
                     {items}
                 </ul>
+                <div className="Footer">
+                    <span>{listItems.length}</span>
+                </div>
             </div>
         </div>
     )
