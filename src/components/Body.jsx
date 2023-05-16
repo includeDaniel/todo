@@ -44,14 +44,14 @@ const Body = () => {
 
         }))
     }
-
-    const items = listItems.map((i, index) => (
-        <div key={i.value} className="ClassItem">
-            <button onClick={() => toggleStatus(index)}>O</button>
-            <li>{i.value}</li>
-            <li>{i.status}</li>
-            <button className="DeleteButton" onClick={() => removeItem(index)}>x</button>
-        </div>))
+    const items = listItems.filter((f) => f.status == 'active')
+        .map((i, index) => (
+            <div key={i.value} className="ClassItem">
+                <button onClick={() => toggleStatus(index)}>O</button>
+                <li>{i.value}</li>
+                <li>{i.status}</li>
+                <button className="DeleteButton" onClick={() => removeItem(index)}>x</button>
+            </div>))
 
     return (
         <div className="Wrapper">
