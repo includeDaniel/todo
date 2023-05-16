@@ -1,0 +1,24 @@
+.Wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100vh;
+}
+
+input {
+    width: 250px;
+    height: 26.8px;
+}
+
+button {
+    width: 30px;
+    height: 30px;
+}
+
+li {
+    display: flex;
+    align-items: center;
+    width: 283.2px;
+    height: 80px;
+}
