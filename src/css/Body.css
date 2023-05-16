@@ -14,11 +14,28 @@ input {
 button {
     width: 30px;
     height: 30px;
+    cursor: pointer;
 }
 
-li {
+.DeleteButton {
+    color: rgb(255, 135, 155);
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+
+}
+
+.DeleteButton:hover {
+    color: red;
+    background-color: black;
+}
+
+.ClassItem {
+    display: flex;
+    flex-direction: row;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     width: 283.2px;
     height: 80px;
 }

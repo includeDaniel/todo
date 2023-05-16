@@ -31,7 +31,11 @@ const Body = () => {
         }
     }
 
-    const items = listItems.map((i, index) => (<li key={i} onClick={() => removeItem(index)}>{i}</li>))
+    const items = listItems.map((i, index) => (
+        <div className="ClassItem">
+            <li key={i}>{i}</li>
+            <button className="DeleteButton" onClick={() => removeItem(index)}>x</button>
+        </div>))
     return (
         <div className="Wrapper">
             <div className="Form">
