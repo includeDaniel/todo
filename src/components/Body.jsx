@@ -2,14 +2,11 @@ import { useState } from "react";
 import React from "react";
 import "../css/Body.css";
 
-let activeLength = [1]
-
 const Body = () => {
 
     const [input, setInput] = useState("");
     const [listItems, setListItems] = useState([]);
     const [state, setState] = useState('all');
-    const [count, setCount] = useState(0)
 
     function handleChange(e) {
         setInput(e.target.value)
@@ -20,8 +17,7 @@ const Body = () => {
     }
 
     function handleClick() {
-        setListItems([...listItems, { id: count, value: input, status: "active" }])
-        setCount(count + 1)
+        setListItems([...listItems, { id: crypto.randomUUID(), value: input, status: "active" }])
         setInput('')
 
 
@@ -59,6 +55,8 @@ const Body = () => {
             </div>))
 
     const length = listItems.filter((value) => value.status == 'active').length
+
+    console.log(listItems)
 
     return (
         <div className="Wrapper">
