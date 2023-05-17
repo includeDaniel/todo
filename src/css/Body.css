@@ -11,7 +11,7 @@ input {
     height: 26.8px;
 }
 
-button {
+.ButtonList {
     width: 30px;
     height: 30px;
     cursor: pointer;
@@ -23,6 +23,10 @@ button {
     width: 30px;
     height: 30px;
 
+}
+
+.FilterButton {
+    padding: 5px
 }
 
 .DeleteButton:hover {
@@ -38,4 +42,9 @@ button {
     justify-content: space-between;
     width: 283.2px;
     height: 80px;
+}
+
+.Footer {
+    display: flex;
+    justify-content: space-between;
 }

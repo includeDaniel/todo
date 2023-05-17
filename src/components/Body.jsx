@@ -2,10 +2,13 @@ import { useState } from "react";
 import React from "react";
 import "../css/Body.css";
 
+let activeLength = [1]
+
 const Body = () => {
 
     const [input, setInput] = useState("");
     const [listItems, setListItems] = useState([]);
+    const [state, setState] = useState('all');
 
     function handleChange(e) {
         setInput(e.target.value)
@@ -44,21 +47,22 @@ const Body = () => {
 
         }))
     }
-    const items = listItems.filter((f) => f.status == 'active')
+    const items = listItems.filter((f) => state === 'all' ? state : (f.status === state))
         .map((i, index) => (
             <div key={i.value} className="ClassItem">
-                <button onClick={() => toggleStatus(index)}>O</button>
+                <button className="ButtonList" onClick={() => toggleStatus(index)}>O</button>
                 <li>{i.value}</li>
                 <li>{i.status}</li>
                 <button className="DeleteButton" onClick={() => removeItem(index)}>x</button>
             </div>))
 
+    const length = listItems.filter((value) => value.status == 'active').length
     return (
         <div className="Wrapper">
             <div className="Form">
 
                 <input type="text" value={input} onChange={handleChange} placeholder="Type somenthing to do" onSubmit={getValue} onKeyDown={handleKeyDown} />
-                <button onClick={handleClick}>Add</button>
+                <button className="ButtonList" onClick={handleClick}>Add</button>
 
             </div>
             <div className="List">
@@ -66,7 +70,10 @@ const Body = () => {
                     {items}
                 </ul>
                 <div className="Footer">
-                    <span>{listItems.length}</span>
+                    <span>{length} items left</span>
+                    <button className="FilterButton" onClick={() => setState('all')}>All</button>
+                    <button className="FilterButton" onClick={() => setState('active')}>Active</button>
+                    <button className="FilterButton" onClick={() => setState('completed')}>Completed</button>
                 </div>
             </div>
         </div>
