@@ -9,6 +9,7 @@ const Body = () => {
     const [input, setInput] = useState("");
     const [listItems, setListItems] = useState([]);
     const [state, setState] = useState('all');
+    const [count, setCount] = useState(0)
 
     function handleChange(e) {
         setInput(e.target.value)
@@ -19,14 +20,15 @@ const Body = () => {
     }
 
     function handleClick() {
-        setListItems([...listItems, { value: input, status: "active" }])
+        setListItems([...listItems, { id: count, value: input, status: "active" }])
+        setCount(count + 1)
         setInput('')
 
 
     }
-    function removeItem(index) {
+    function removeItem(id) {
 
-        setListItems(listItems.filter((f, i) => i != index))
+        setListItems(listItems.filter((f) => f.id != id))
 
     }
 
@@ -36,27 +38,28 @@ const Body = () => {
         }
     }
 
-    function toggleStatus(index) {
+    function toggleStatus(id) {
         setListItems(listItems.map((value, i) => {
-            if (index == i) {
+            if (id == value.id) {
                 const status = value.status === "active" ? "completed" : "active"
                 return { ...value, status }
             }
-            console.log(value)
             return value
 
         }))
     }
+
     const items = listItems.filter((f) => state === 'all' ? state : (f.status === state))
         .map((i, index) => (
             <div key={i.value} className="ClassItem">
-                <button className="ButtonList" onClick={() => toggleStatus(index)}>O</button>
+                <button className="ButtonList" onClick={() => toggleStatus(i.id)}>O</button>
                 <li>{i.value}</li>
                 <li>{i.status}</li>
-                <button className="DeleteButton" onClick={() => removeItem(index)}>x</button>
+                <button className="DeleteButton" onClick={() => removeItem(i.id)}>x</button>
             </div>))
 
     const length = listItems.filter((value) => value.status == 'active').length
+
     return (
         <div className="Wrapper">
             <div className="Form">
