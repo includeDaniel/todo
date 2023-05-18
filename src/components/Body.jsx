@@ -24,9 +24,15 @@ const Body = () => {
     }
     function removeItem(id) {
 
-        setListItems(listItems.filter((f) => f.id != id))
+        setListItems(listItems.filter((f) => (f.id != id)))
 
     }
+
+    function removeActive(status) {
+        setListItems(listItems.filter((f) => f.status != status))
+
+    }
+
 
     const handleKeyDown = (e) => {
         if (e.key === 'Enter') {
@@ -46,17 +52,18 @@ const Body = () => {
     }
 
     const items = listItems.filter((f) => state === 'all' ? state : (f.status === state))
-        .map((i, index) => (
-            <div key={i.value} className="ClassItem">
+        .map((i) => (
+            <div key={i.id} className="ClassItem">
                 <button className="ButtonList" onClick={() => toggleStatus(i.id)}>O</button>
                 <li>{i.value}</li>
                 <li>{i.status}</li>
-                <button className="DeleteButton" onClick={() => removeItem(i.id)}>x</button>
+                <button className="DeleteButton" onClick={() => removeItem(i.id, i.status)}>x</button>
             </div>))
 
     const length = listItems.filter((value) => value.status == 'active').length
+    const hasCompleted = listItems.filter((value) => value.status == 'completed').length > 0
 
-    console.log(listItems)
+    console.log(hasCompleted)
 
     return (
         <div className="Wrapper">
@@ -75,6 +82,7 @@ const Body = () => {
                     <button className="FilterButton" onClick={() => setState('all')}>All</button>
                     <button className="FilterButton" onClick={() => setState('active')}>Active</button>
                     <button className="FilterButton" onClick={() => setState('completed')}>Completed</button>
+                    <button className="FilterButton" style={{ display: hasCompleted ? 'block' : 'none' }} onClick={() => removeActive('completed')}>Clear completed</button>
                 </div>
             </div>
         </div>
