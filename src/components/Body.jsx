@@ -33,7 +33,6 @@ const Body = () => {
 
     }
 
-
     const handleKeyDown = (e) => {
         if (e.key === 'Enter') {
             handleClick()
@@ -41,7 +40,7 @@ const Body = () => {
     }
 
     function toggleStatus(id) {
-        setListItems(listItems.map((value, i) => {
+        setListItems(listItems.map((value) => {
             if (id == value.id) {
                 const status = value.status === "active" ? "completed" : "active"
                 return { ...value, status }
@@ -50,6 +49,8 @@ const Body = () => {
 
         }))
     }
+    const toggleAllStatus = (status = listItems.some((f) => f.status == 'active') ? 'completed' : 'active') =>
+        setListItems(listItems.map((value) => ({ ...value, status })))
 
     const items = listItems.filter((f) => state === 'all' ? state : (f.status === state))
         .map((i) => (
@@ -62,15 +63,14 @@ const Body = () => {
 
     const length = listItems.filter((value) => value.status == 'active').length
     const hasCompleted = listItems.filter((value) => value.status == 'completed').length > 0
-
-    console.log(hasCompleted)
-
+    console.log(listItems)
     return (
         <div className="Wrapper">
             <div className="Form">
-
+                <button className="ButtonList" onClick={() => toggleAllStatus()}>*</button>
                 <input type="text" value={input} onChange={handleChange} placeholder="Type somenthing to do" onSubmit={getValue} onKeyDown={handleKeyDown} />
                 <button className="ButtonList" onClick={handleClick}>Add</button>
+
 
             </div>
             <div className="List">
