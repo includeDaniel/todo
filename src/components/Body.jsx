@@ -57,21 +57,20 @@ const Body = () => {
         next = listItems.map((value) => ({ ...value, status }))) =>
         setListItems(next)
 
-
-    const isCompleted = listItems.map((value) => value.status == 'completed')
+    const hasCompleted = listItems.filter((value) => value.status == 'completed').length > 0
+    const isCompleted = listItems.filter((value) => value.status == 'completed') == false
     const items = listItems.filter((f) => state === 'all' ? state : (f.status === state))
 
         .map((i) => (
 
             <div key={i.id} className="w-full h-16 border-2 boreder-white flex items-center justify-between">
                 <button className="w-16 h-16 border-2 border-white flex justify-center items-center" onClick={() => toggleStatus(i.id)}><div className='w-6 h-6 rounded-full border-4 border-green-500'></div></button >
-                <li style={{ textDecoration: isCompleted ? 'line-through' : 'none' }}>{i.value}</li>
+                <li style={{ textDecoration: isCompleted ? 'none' : 'line-through' }}>{i.value}</li>
                 <li>{i.status}</li>
                 <button className="w-16 h-16 text-red-500 border-2 border-white" onClick={() => removeItem(i.id, i.status)}>x</button>
             </div >))
-    console.log(isCompleted)
     const length = listItems.filter((value) => value.status == 'active').length
-    const hasCompleted = listItems.filter((value) => value.status == 'completed').length > 0
+
 
 
     return (
