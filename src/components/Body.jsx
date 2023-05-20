@@ -1,6 +1,8 @@
-import { useState } from "react";
 import React from "react";
-import "../css/Body.css";
+import { useState } from "react";
+import { TodoFilter } from "./TodoFilter";
+import { TodoItem } from './TodoItem'
+import { TodoInput } from "./TodoInput";
 
 const Body = () => {
 
@@ -55,36 +57,24 @@ const Body = () => {
 
     const items = listItems.filter((f) => state === 'all' ? state : (f.status === state))
         .map((i) => (
-            <div key={i.id} className="ClassItem">
-                <button className="ButtonList" onClick={() => toggleStatus(i.id)}>O</button>
+            <div key={i.id} className="w-full h-16 border-2 boreder-white flex items-center justify-between">
+                <button className="w-8 h-8 text-green-500" onClick={() => toggleStatus(i.id)}>O</button>
                 <li>{i.value}</li>
                 <li>{i.status}</li>
-                <button className="DeleteButton" onClick={() => removeItem(i.id, i.status)}>x</button>
+                <button className="w-8 h-8 text-red-500" onClick={() => removeItem(i.id, i.status)}>x</button>
             </div>))
 
     const length = listItems.filter((value) => value.status == 'active').length
     const hasCompleted = listItems.filter((value) => value.status == 'completed').length > 0
-    console.log(listItems)
+
     return (
-        <div className="Wrapper">
-            <div className="Form">
-                <button className="ButtonList" onClick={() => toggleAllStatus()}>*</button>
-                <input type="text" value={input} onChange={handleChange} placeholder="Type somenthing to do" onSubmit={getValue} onKeyDown={handleKeyDown} />
-                <button className="ButtonList" onClick={handleClick}>Add</button>
-            </div>
-            <div className="List">
-                <ul className="todo-list" style={{ listStyleType: "none" }}>
-                    {items}
-                </ul>
-                <div className="Footer">
-                    <span>{length} items left</span>
-                    <button className="FilterButton" onClick={() => setState('all')}>All</button>
-                    <button className="FilterButton" onClick={() => setState('active')}>Active</button>
-                    <button className="FilterButton" onClick={() => setState('completed')}>Completed</button>
-                    <button className="FilterButton" style={{ display: hasCompleted ? 'block' : 'none' }} onClick={() => removeActive('completed')}>Clear completed</button>
-                </div>
-            </div>
+
+        <div className="w-100 flex items-center justify-center flex-col bg-slate-800 text-[#ffffff]">
+            <TodoInput input={input} handleChange={handleChange} getValue={getValue} handleKeyDown={handleKeyDown} toggleAllStatus={toggleAllStatus} />
+            <TodoItem items={items} />
+            <TodoFilter length={length} hasCompleted={hasCompleted} removeActive={removeActive} setState={setState} />
         </div>
+
     )
 }
 export { Body }
