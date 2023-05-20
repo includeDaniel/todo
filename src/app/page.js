@@ -5,11 +5,9 @@ import { Body } from '../components/Body'
 
 export default function Home() {
 	return (
-		<div className='h-max-content bg-slate-400'>
-			<div className='flex items-center flex-col'>
-				<TodoTitle>My Tasks</TodoTitle>
-				<Body />
-			</div>
+		<div className='w-screen flex items-center flex-col h-screen bg-slate-400'>
+			<TodoTitle>My Tasks</TodoTitle>
+			<Body />
 		</div>
 	)
 }

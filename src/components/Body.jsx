@@ -58,10 +58,10 @@ const Body = () => {
     const items = listItems.filter((f) => state === 'all' ? state : (f.status === state))
         .map((i) => (
             <div key={i.id} className="w-full h-16 border-2 boreder-white flex items-center justify-between">
-                <button className="w-8 h-8 text-green-500" onClick={() => toggleStatus(i.id)}>O</button>
+                <button className="w-16 h-16 text-green-500 border-2 border-white" onClick={() => toggleStatus(i.id)}>O</button>
                 <li>{i.value}</li>
                 <li>{i.status}</li>
-                <button className="w-8 h-8 text-red-500" onClick={() => removeItem(i.id, i.status)}>x</button>
+                <button className="w-16 h-16 text-red-500 border-2 border-white" onClick={() => removeItem(i.id, i.status)}>x</button>
             </div>))
 
     const length = listItems.filter((value) => value.status == 'active').length
