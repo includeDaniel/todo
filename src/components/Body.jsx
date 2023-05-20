@@ -5,7 +5,7 @@ import "../css/Body.css";
 const Body = () => {
 
     const [input, setInput] = useState("");
-    const [listItems, setListItems] = useState([]);
+    const [listItems, setListItems] = useState([{ value: '1', status: 'active' }]);
     const [state, setState] = useState('all');
 
     function handleChange(e) {
@@ -49,8 +49,9 @@ const Body = () => {
 
         }))
     }
-    const toggleAllStatus = (status = listItems.some((f) => f.status == 'active') ? 'completed' : 'active') =>
-        setListItems(listItems.map((value) => ({ ...value, status })))
+    const toggleAllStatus = (status = listItems.some((f) => f.status == 'active') ? 'completed' : 'active',
+        next = listItems.map((value) => ({ ...value, status }))) =>
+        setListItems(next)
 
     const items = listItems.filter((f) => state === 'all' ? state : (f.status === state))
         .map((i) => (
@@ -70,11 +71,9 @@ const Body = () => {
                 <button className="ButtonList" onClick={() => toggleAllStatus()}>*</button>
                 <input type="text" value={input} onChange={handleChange} placeholder="Type somenthing to do" onSubmit={getValue} onKeyDown={handleKeyDown} />
                 <button className="ButtonList" onClick={handleClick}>Add</button>
-
-
             </div>
             <div className="List">
-                <ul style={{ listStyleType: "none" }}>
+                <ul className="todo-list" style={{ listStyleType: "none" }}>
                     {items}
                 </ul>
                 <div className="Footer">
