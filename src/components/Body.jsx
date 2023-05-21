@@ -7,7 +7,7 @@ import { TodoInput } from "./TodoInput";
 const Body = () => {
 
     const [input, setInput] = useState("");
-    const [listItems, setListItems] = useState([{ value: '1', status: 'active' }]);
+    const [listItems, setListItems] = useState([{ id: crypto.randomUUID(), value: '1', status: 'active' }]);
     const [state, setState] = useState('all');
 
     function handleChange(e) {
@@ -58,15 +58,13 @@ const Body = () => {
         setListItems(next)
 
     const hasCompleted = listItems.filter((value) => value.status == 'completed').length > 0
-    const isCompleted = listItems.filter((value) => value.status == 'completed') == false
     const items = listItems.filter((f) => state === 'all' ? state : (f.status === state))
 
         .map((i) => (
 
             <div key={i.id} className="w-full h-16 border-2 boreder-white flex items-center justify-between">
-                <button className="w-16 h-16 border-2 border-white flex justify-center items-center" onClick={() => toggleStatus(i.id)}><div className='w-6 h-6 rounded-full border-4 border-green-500'></div></button >
-                <li style={{ textDecoration: isCompleted ? 'none' : 'line-through' }}>{i.value}</li>
-                <li>{i.status}</li>
+                <button className="w-16 h-16 border-2 border-white flex justify-center items-center" onClick={() => toggleStatus(i.id)}><div style={{ backgroundColor: i.status === 'completed' ? 'green' : 'transparent' }} className='w-6 h-6 rounded-full border-4 border-green-700'></div></button >
+                <li style={{ textDecoration: i.status === 'completed' ? 'line-through' : 'none', color: i.status === 'completed' ? 'gray' : "white" }}>{i.value}</li>
                 <button className="w-16 h-16 text-red-500 border-2 border-white" onClick={() => removeItem(i.id, i.status)}>x</button>
             </div >))
     const length = listItems.filter((value) => value.status == 'active').length
