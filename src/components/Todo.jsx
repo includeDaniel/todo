@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useState } from "react";
 import { TodoFilter } from "./TodoFilter";
 import { TodoItem } from './TodoItem'
@@ -7,11 +7,19 @@ import { TodoInput } from "./TodoInput";
 const Todo = () => {
 
     const [input, setInput] = useState("");
-    const [listItems, setListItems] = useState([{ id: crypto.randomUUID(), value: '1', status: 'active' }]);
+    const [listItems, setListItems] = useState(() => {
+        const localData = localStorage.getItem('todo');
+        return localData ? JSON.parse(localData) : [];
+    });
     const [state, setState] = useState('all');
+
+    useEffect(() => {
+        window.localStorage.setItem('todo', JSON.stringify(listItems))
+    }, [listItems])
 
     function handleChange(e) {
         setInput(e.target.value)
+
     }
 
     function getValue() {
@@ -21,9 +29,8 @@ const Todo = () => {
     function handleClick() {
         setListItems([...listItems, { id: crypto.randomUUID(), value: input, status: "active" }])
         setInput('')
-
-
     }
+
     function removeItem(id) {
 
         setListItems(listItems.filter((f) => (f.id != id)))
@@ -76,15 +83,16 @@ const Todo = () => {
             </div >))
     const length = listItems.filter((value) => value.status == 'active').length
 
-    console.log(listItems)
-
     return (
+        <>
+            <div className="w-100 flex items-center justify-center flex-col bg-slate-800 text-[#ffffff]">
+                <TodoInput input={input} handleChange={handleChange} getValue={getValue} handleKeyDown={handleKeyDown} toggleAllStatus={toggleAllStatus} />
+                <TodoItem items={items} />
+                <TodoFilter length={length} hasCompleted={hasCompleted} removeActive={removeActive} setState={setState} />
+            </div>
 
-        <div className="w-100 flex items-center justify-center flex-col bg-slate-800 text-[#ffffff]">
-            <TodoInput input={input} handleChange={handleChange} getValue={getValue} handleKeyDown={handleKeyDown} toggleAllStatus={toggleAllStatus} />
-            <TodoItem items={items} />
-            <TodoFilter length={length} hasCompleted={hasCompleted} removeActive={removeActive} setState={setState} />
-        </div>
+
+        </>
 
     )
 }
