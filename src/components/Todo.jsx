@@ -3,6 +3,7 @@ import { useState } from "react";
 import { TodoFilter } from "./TodoFilter";
 import { TodoItem } from './TodoItem'
 import { TodoInput } from "./TodoInput";
+import { useTodo } from "@/hooks/useTodo";
 
 const Todo = () => {
 
@@ -12,6 +13,7 @@ const Todo = () => {
         return localData ? JSON.parse(localData) : [];
     });
     const [state, setState] = useState('all');
+    const {items, action} = useTodo()
 
     useEffect(() => {
         window.localStorage.setItem('todo', JSON.stringify(listItems))
@@ -19,21 +21,19 @@ const Todo = () => {
 
     function handleChange(e) {
         setInput(e.target.value)
-
-    }
-
-    function getValue() {
-        value = document.querySelector('input').value;
     }
 
     function handleClick() {
-        setListItems([...listItems, { id: crypto.randomUUID(), value: input, status: "active" }])
+        const id = crypto.randomUUID()
+        setListItems([...listItems, { id , value: input, status: "active" }])
         setInput('')
+        action.append({id , value: input, status: "active"})    
     }
 
     function removeItem(id) {
 
         setListItems(listItems.filter((f) => (f.id != id)))
+        action.remove(id)
 
     }
 
@@ -57,37 +57,42 @@ const Todo = () => {
             return value
 
         }))
+
+        action.toggleStatus(id)
     }
 
     function UpdateList(e, id) {
-        //setListItems()u
         setListItems(listItems.map((m) => id === m.id ? { ...m, value: e.currentTarget.innerHTML } : m))
+        action.edit(id, e.currentTarget.innerHTML)
 
     }
-
-
-
     const toggleAllStatus = (status = listItems.some((f) => f.status == 'active') ? 'completed' : 'active',
         next = listItems.map((value) => ({ ...value, status }))) =>
         setListItems(next)
 
     const hasCompleted = listItems.filter((value) => value.status == 'completed').length > 0
-    const items = listItems.filter((f) => state === 'all' ? state : (f.status === state))
-
-        .map((i) => (
+ 
+    const xitems = action.filter(state)
+    console.log(xitems)
+  
+    const _items = listItems.filter((f) => state === 'all' ? state : (f.status === state))
+    .map((i) => (
 
             <div key={i.id} className="w-full h-16 border-2 boreder-white flex items-center justify-between">
                 <button className="w-16 h-16 border-2 border-white flex justify-center items-center" onClick={() => toggleStatus(i.id)}><div style={{ backgroundColor: i.status === 'completed' ? 'green' : 'transparent' }} className='w-6 h-6 rounded-full border-4 border-green-700'></div></button >
                 <li contenteditable="true" onBlur={(e) => UpdateList(e, i.id)} style={{ textDecoration: i.status === 'completed' ? 'line-through' : 'none', color: i.status === 'completed' ? 'gray' : "white" }}>{i.value}</li>
-                <button className="w-16 h-16 text-red-500 border-2 border-white" onClick={() => removeItem(i.id, i.status)}>x</button>
+                <button className="w-16 h-16 text-red-500 border-2 border-white" onClick={() => removeItem(i.id)}>x</button>
             </div >))
     const length = listItems.filter((value) => value.status == 'active').length
+
+    console.log(items)
+    
 
     return (
         <>
             <div className="w-100 flex items-center justify-center flex-col bg-slate-800 text-[#ffffff]">
-                <TodoInput input={input} handleChange={handleChange} getValue={getValue} handleKeyDown={handleKeyDown} toggleAllStatus={toggleAllStatus} />
-                <TodoItem items={items} />
+                <TodoInput input={input} handleChange={handleChange} handleKeyDown={handleKeyDown} toggleAllStatus={toggleAllStatus} />
+                <TodoItem items={_items} />
                 <TodoFilter length={length} hasCompleted={hasCompleted} removeActive={removeActive} setState={setState} />
             </div>
 
