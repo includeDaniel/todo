@@ -34,12 +34,13 @@ export const useTodo = () => {
             status === "all" ? curr : curr.status === status
         );
     };
-    const clearContent = (content) => {
-        setItems(items.filter((f) => f !== content));
+    const clearCompleted = () => {
+        setItems(items.filter((f) => f.status !== "completed"));
     };
+    const toggleAllStatus = () => {};
 
     return {
         items,
-        action: { append, remove, edit, filter, clearContent, toggleStatus },
+        action: { append, remove, edit, filter, clearCompleted, toggleStatus },
     };
 };

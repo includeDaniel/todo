@@ -39,6 +39,7 @@ const Todo = () => {
 
     function removeActive(status) {
         setListItems(listItems.filter((f) => f.status != status))
+        action.clearCompleted()
 
     }
 
