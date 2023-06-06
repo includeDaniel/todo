@@ -7,35 +7,27 @@ import { useTodo } from "@/hooks/useTodo";
 
 const Todo = () => {
     const [input, setInput] = useState("");
-    const [listItems, setListItems] = useState(() => {
-        const localData = localStorage.getItem("todo");
-        return localData ? JSON.parse(localData) : [];
-    });
     const [state, setState] = useState("all");
     const { items, action } = useTodo();
-
-    useEffect(() => {
-        window.localStorage.setItem("todo", JSON.stringify(listItems));
-    }, [listItems]);
 
     function handleChange(e) {
         setInput(e.target.value);
     }
 
     function handleClick() {
-        const id = crypto.randomUUID();
-        setListItems([...listItems, { id, value: input, status: "active" }]);
+        action.append({
+            id: crypto.randomUUID(),
+            value: input,
+            status: "active",
+        });
         setInput("");
-        action.append({ id, value: input, status: "active" });
     }
 
     function removeItem(id) {
-        setListItems(listItems.filter((f) => f.id != id));
         action.remove(id);
     }
 
     function removeActive(status) {
-        setListItems(listItems.filter((f) => f.status != status));
         action.clearCompleted();
     }
 
@@ -46,45 +38,23 @@ const Todo = () => {
     };
 
     function toggleStatus(id) {
-        setListItems(
-            listItems.map((value) => {
-                if (id == value.id) {
-                    const status =
-                        value.status === "active" ? "completed" : "active";
-                    return { ...value, status };
-                }
-                return value;
-            })
-        );
-
         action.toggleStatus(id);
     }
 
     function UpdateList(e, id) {
-        setListItems(
-            listItems.map((m) =>
-                id === m.id ? { ...m, value: e.currentTarget.innerHTML } : m
-            )
-        );
         action.edit(id, e.currentTarget.innerHTML);
     }
-    const toggleAllStatus = (
-        status = listItems.some((f) => f.status == "active")
-            ? "completed"
-            : "active",
-        next = listItems.map((value) => ({ ...value, status }))
-    ) => {
-        setListItems(next);
+    const toggleAllStatus = () => {
         action.toggleAllStatus();
     };
 
     const hasCompleted =
-        listItems.filter((value) => value.status == "completed").length > 0;
+        items.filter((value) => value.status == "completed").length > 0;
 
     const xitems = action.filter(state);
     console.log(xitems);
 
-    const _items = listItems
+    const _items = items
         .filter((f) => (state === "all" ? state : f.status === state))
         .map((i) => (
             <div
@@ -124,7 +94,7 @@ const Todo = () => {
                 </button>
             </div>
         ));
-    const length = listItems.filter((value) => value.status == "active").length;
+    const length = items.filter((value) => value.status == "active").length;
 
     console.log(items);
 

@@ -1,7 +1,14 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export const useTodo = () => {
-    const [items, setItems] = useState([]);
+    const [items, setItems] = useState(() => {
+        const localData = localStorage.getItem("todo");
+        return localData ? JSON.parse(localData) : [];
+    });
+
+    useEffect(() => {
+        window.localStorage.setItem("todo", JSON.stringify(items));
+    }, [items]);
 
     const append = (newItem) => {
         setItems([...items, newItem]);
