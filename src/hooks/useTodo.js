@@ -37,10 +37,23 @@ export const useTodo = () => {
     const clearCompleted = () => {
         setItems(items.filter((f) => f.status !== "completed"));
     };
-    const toggleAllStatus = () => {};
+    const toggleAllStatus = (
+        status = items.some((f) => f.status == "active")
+            ? "completed"
+            : "active",
+        next = items.map((value) => ({ ...value, status }))
+    ) => setItems(next);
 
     return {
         items,
-        action: { append, remove, edit, filter, clearCompleted, toggleStatus },
+        action: {
+            append,
+            remove,
+            edit,
+            filter,
+            clearCompleted,
+            toggleStatus,
+            toggleAllStatus,
+        },
     };
 };
