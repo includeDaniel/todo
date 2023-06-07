@@ -23,8 +23,8 @@ const Todo = () => {
         setInput("");
     }
 
-    function removeItem(id) {
-        action.remove(id);
+    function removeItem(todo) {
+        action.remove(todo);
     }
 
     function removeActive() {
@@ -37,8 +37,8 @@ const Todo = () => {
         }
     };
 
-    function toggleStatus(id) {
-        action.toggleStatus(id);
+    function toggleStatus(id, status) {
+        action.toggleStatus(id, status);
     }
 
     function UpdateList(e, id) {
@@ -48,9 +48,6 @@ const Todo = () => {
         action.toggleAllStatus();
     };
 
-    const hasCompleted =
-        items.filter((value) => value.status == "completed").length > 0;
-
     const todoItems = action.filter(state).map((i) => (
         <div
             key={i.id}
@@ -58,7 +55,7 @@ const Todo = () => {
         >
             <button
                 className="w-16 h-16 border-2 border-white flex justify-center items-center"
-                onClick={() => toggleStatus(i.id)}
+                onClick={() => toggleStatus(i.id, i.status)}
             >
                 <div
                     style={{
@@ -81,13 +78,16 @@ const Todo = () => {
             </li>
             <button
                 className="w-16 h-16 text-red-500 border-2 border-white"
-                onClick={() => removeItem(i.id)}
+                onClick={() => removeItem(i)}
             >
                 x
             </button>
         </div>
     ));
     const length = items.filter((value) => value.status == "active").length;
+    const hasCompleted =
+        items.filter((value) => value.status == "completed").length > 0;
+
     return (
         <>
             <div className="w-100 flex items-center justify-center flex-col bg-slate-800 text-[#ffffff]">

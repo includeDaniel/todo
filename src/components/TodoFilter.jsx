@@ -25,7 +25,7 @@ const TodoFilter = ({ length, hasCompleted, removeActive, setState }) => (
         </div>
         <button
             className="p-5 text-sm text-[#808080]"
-            style={{ display: hasCompleted ? "block" : "none" }}
+            style={{ visibility: hasCompleted ? "visible" : "hidden" }}
             onClick={() => removeActive()}
         >
             Clear completed
