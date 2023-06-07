@@ -51,9 +51,6 @@ const Todo = () => {
     const hasCompleted =
         items.filter((value) => value.status == "completed").length > 0;
 
-    const xitems = action.filter(state);
-    console.log(xitems);
-
     const _items = items
         .filter((f) => (state === "all" ? state : f.status === state))
         .map((i) => (
