@@ -2,7 +2,9 @@ import { useEffect, useState } from "react";
 
 export const useTodo = () => {
     const [items, setItems] = useState(() => {
-        const localData = localStorage.getItem("todo");
+        const localData =
+            typeof window !== "undefined" &&
+            window.localStorage.getItem("todo");
         return localData ? JSON.parse(localData) : [];
     });
 

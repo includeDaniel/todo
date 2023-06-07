@@ -27,7 +27,7 @@ const Todo = () => {
         action.remove(id);
     }
 
-    function removeActive(status) {
+    function removeActive() {
         action.clearCompleted();
     }
 
@@ -51,50 +51,43 @@ const Todo = () => {
     const hasCompleted =
         items.filter((value) => value.status == "completed").length > 0;
 
-    const _items = items
-        .filter((f) => (state === "all" ? state : f.status === state))
-        .map((i) => (
-            <div
-                key={i.id}
-                className="w-full h-16 border-2 boreder-white flex items-center justify-between"
+    const todoItems = action.filter(state).map((i) => (
+        <div
+            key={i.id}
+            className="w-full h-16 border-2 boreder-white flex items-center justify-between"
+        >
+            <button
+                className="w-16 h-16 border-2 border-white flex justify-center items-center"
+                onClick={() => toggleStatus(i.id)}
             >
-                <button
-                    className="w-16 h-16 border-2 border-white flex justify-center items-center"
-                    onClick={() => toggleStatus(i.id)}
-                >
-                    <div
-                        style={{
-                            backgroundColor:
-                                i.status === "completed"
-                                    ? "green"
-                                    : "transparent",
-                        }}
-                        className="w-6 h-6 rounded-full border-4 border-green-700"
-                    ></div>
-                </button>
-                <li
-                    contenteditable="true"
-                    onBlur={(e) => UpdateList(e, i.id)}
+                <div
                     style={{
-                        textDecoration:
-                            i.status === "completed" ? "line-through" : "none",
-                        color: i.status === "completed" ? "gray" : "white",
+                        backgroundColor:
+                            i.status === "completed" ? "green" : "transparent",
                     }}
-                >
-                    {i.value}
-                </li>
-                <button
-                    className="w-16 h-16 text-red-500 border-2 border-white"
-                    onClick={() => removeItem(i.id)}
-                >
-                    x
-                </button>
-            </div>
-        ));
+                    className="w-6 h-6 rounded-full border-4 border-green-700"
+                ></div>
+            </button>
+            <li
+                contenteditable="true"
+                onBlur={(e) => UpdateList(e, i.id)}
+                style={{
+                    textDecoration:
+                        i.status === "completed" ? "line-through" : "none",
+                    color: i.status === "completed" ? "gray" : "white",
+                }}
+            >
+                {i.value}
+            </li>
+            <button
+                className="w-16 h-16 text-red-500 border-2 border-white"
+                onClick={() => removeItem(i.id)}
+            >
+                x
+            </button>
+        </div>
+    ));
     const length = items.filter((value) => value.status == "active").length;
-
-    console.log(items);
-
     return (
         <>
             <div className="w-100 flex items-center justify-center flex-col bg-slate-800 text-[#ffffff]">
@@ -104,7 +97,7 @@ const Todo = () => {
                     handleKeyDown={handleKeyDown}
                     toggleAllStatus={toggleAllStatus}
                 />
-                <TodoItem items={_items} />
+                <TodoItem items={todoItems} />
                 <TodoFilter
                     length={length}
                     hasCompleted={hasCompleted}
