@@ -1,7 +1,16 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export const useTodo = () => {
-    const [items, setItems] = useState([]);
+    const [items, setItems] = useState(() => {
+        const localData =
+            typeof window !== "undefined" &&
+            window.localStorage.getItem("todo");
+        return localData ? JSON.parse(localData) : [];
+    });
+
+    useEffect(() => {
+        window.localStorage.setItem("todo", JSON.stringify(items));
+    }, [items]);
 
     const append = (newItem) => {
         setItems([...items, newItem]);
@@ -37,10 +46,23 @@ export const useTodo = () => {
     const clearCompleted = () => {
         setItems(items.filter((f) => f.status !== "completed"));
     };
-    const toggleAllStatus = () => {};
+    const toggleAllStatus = (
+        status = items.some((f) => f.status == "active")
+            ? "completed"
+            : "active",
+        next = items.map((value) => ({ ...value, status }))
+    ) => setItems(next);
 
     return {
         items,
-        action: { append, remove, edit, filter, clearCompleted, toggleStatus },
+        action: {
+            append,
+            remove,
+            edit,
+            filter,
+            clearCompleted,
+            toggleStatus,
+            toggleAllStatus,
+        },
     };
 };
