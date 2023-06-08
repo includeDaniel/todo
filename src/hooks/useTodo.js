@@ -88,19 +88,47 @@ export const useTodo = () => {
         }));
     };
     const filter = (status) => {
+        console.log(
+            todo.items.filter((curr) =>
+                status === "all" ? curr : curr.status === status
+            )
+        );
+
         return items.filter((curr) =>
             status === "all" ? curr : curr.status === status
         );
     };
     const clearCompleted = () => {
         setItems(items.filter((f) => f.status !== "completed"));
+        setTodo((prev) => ({
+            ...prev,
+            items: prev.items.filter((curr) => curr.status !== "completed"),
+            completed: 0,
+            active: prev.active,
+        }));
     };
     const toggleAllStatus = (
         status = items.some((f) => f.status == "active")
             ? "completed"
             : "active",
         next = items.map((value) => ({ ...value, status }))
-    ) => setItems(next);
+    ) => {
+        setItems(next);
+        setTodo((prev) => ({
+            ...prev,
+            items: prev.items.map((curr) =>
+                curr.status == "active"
+                    ? { id: curr.id, value: curr.value, status: "completed" }
+                    : { id: curr.id, value: curr.value, status: "active" }
+            ),
+            active: prev.items.some((curr) => curr.status == "completed")
+                ? prev.items.length
+                : 0,
+            completed: prev.items.some((curr) => curr.status == "active")
+                ? prev.items.length
+                : 0,
+        }));
+    };
 
     return {
         items,
