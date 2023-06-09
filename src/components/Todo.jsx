@@ -8,7 +8,7 @@ import { useTodo } from "@/hooks/useTodo";
 const Todo = () => {
     const [input, setInput] = useState("");
     const [state, setState] = useState("all");
-    const { items, action } = useTodo();
+    const { todo, action } = useTodo();
 
     function handleChange(e) {
         setInput(e.target.value);
@@ -84,9 +84,11 @@ const Todo = () => {
             </button>
         </div>
     ));
-    const length = items.filter((value) => value.status == "active").length;
+    const length = todo.items.filter(
+        (value) => value.status == "active"
+    ).length;
     const hasCompleted =
-        items.filter((value) => value.status == "completed").length > 0;
+        todo.items.filter((value) => value.status == "completed").length > 0;
 
     return (
         <>
