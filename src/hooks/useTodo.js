@@ -108,25 +108,17 @@ export const useTodo = () => {
         }));
     };
     const toggleAllStatus = (
-        status = items.some((f) => f.status == "active")
+        status = todo.items.some((f) => f.status == "active")
             ? "completed"
             : "active",
-        next = items.map((value) => ({ ...value, status }))
+        next = todo.items.map((value) => ({ ...value, status }))
     ) => {
         setItems(next);
         setTodo((prev) => ({
             ...prev,
-            items: prev.items.map((curr) =>
-                curr.status == "active"
-                    ? { id: curr.id, value: curr.value, status: "completed" }
-                    : { id: curr.id, value: curr.value, status: "active" }
-            ),
-            active: prev.items.some((curr) => curr.status == "completed")
-                ? prev.items.length
-                : 0,
-            completed: prev.items.some((curr) => curr.status == "active")
-                ? prev.items.length
-                : 0,
+            items: next,
+            active: status === "active" ? prev.items.length : 0,
+            completed: status === "completed" ? prev.items.length : 0,
         }));
     };
 
