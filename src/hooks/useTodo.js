@@ -15,12 +15,6 @@ export const useTodo = () => {
             : { items: [], completed: 0, active: 0 };
     });
 
-    // const [todo, setTodo] = useState({
-    //     items: [],
-    //     completed: 0,
-    //     active: 0,
-    // });
-
     useEffect(() => {
         window.localStorage.setItem("todo", JSON.stringify(todo));
     }, [todo]);
