@@ -1,10 +1,5 @@
 import { useEffect, useState } from "react";
 
-//Quando eu crio um item
-//Quando eu removo um item ativo
-//Qundo eu mudo o status para completed
-//Quando eu dou toggleAllStatus
-
 export const useTodo = () => {
     const [todo, setTodo] = useState(() => {
         const localData =
@@ -18,8 +13,6 @@ export const useTodo = () => {
     useEffect(() => {
         window.localStorage.setItem("todo", JSON.stringify(todo));
     }, [todo]);
-
-    console.log(todo);
 
     const append = (newItem) => {
         setTodo((prev) => ({

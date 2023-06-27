@@ -47,9 +47,13 @@ const Todo = () => {
     const toggleAllStatus = () => {
         action.toggleAllStatus();
     };
+    console.log(todo);
     return (
         <>
-            <div className="w-100 flex items-center justify-center flex-col bg-slate-800 text-[#ffffff]">
+            <div
+                data-testid="todo"
+                className="w-100 flex items-center justify-center flex-col bg-slate-800 text-[#ffffff]"
+            >
                 <TodoInput
                     input={input}
                     handleChange={handleChange}

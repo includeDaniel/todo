@@ -2,23 +2,23 @@ import { memo } from "react";
 
 const TodoItems = memo(
     ({ action, state, toggleStatus, UpdateList, removeItem }) => {
-        return action.filter(state).map((i) => (
+        return action.filter(state).map((v) => (
             <ul
                 className=" w-full border-2 border-white"
                 style={{ listStyleType: "none" }}
             >
                 <div
-                    key={i.id}
+                    key={v.id}
                     className="w-full h-16 border-2 boreder-white flex items-center justify-between"
                 >
                     <button
                         className="w-16 h-16 border-2 border-white flex justify-center items-center"
-                        onClick={() => toggleStatus(i.id, i.status)}
+                        onClick={() => toggleStatus(v.id, v.status)}
                     >
                         <div
                             style={{
                                 backgroundColor:
-                                    i.status === "completed"
+                                    v.status === "completed"
                                         ? "green"
                                         : "transparent",
                             }}
@@ -27,20 +27,20 @@ const TodoItems = memo(
                     </button>
                     <li
                         contenteditable="true"
-                        onBlur={(e) => UpdateList(e, i.id)}
+                        onBlur={(e) => UpdateList(e, v.id)}
                         style={{
                             textDecoration:
-                                i.status === "completed"
+                                v.status === "completed"
                                     ? "line-through"
                                     : "none",
-                            color: i.status === "completed" ? "gray" : "white",
+                            color: v.status === "completed" ? "gray" : "white",
                         }}
                     >
-                        {i.value}
+                        {v.value}
                     </li>
                     <button
                         className="w-16 h-16 text-red-500 border-2 border-white"
-                        onClick={() => removeItem(i)}
+                        onClick={() => removeItem(v)}
                     >
                         x
                     </button>
