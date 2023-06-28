@@ -27,7 +27,7 @@ const Todo = () => {
         action.remove(todo);
     }
 
-    function removeActive() {
+    function removeCompleted() {
         action.clearCompleted();
     }
 
@@ -70,7 +70,7 @@ const Todo = () => {
                 <TodoFilter
                     length={todo.active}
                     hasCompleted={todo.completed > 0}
-                    removeActive={removeActive}
+                    removeCompleted={removeCompleted}
                     setState={setState}
                 />
             </div>

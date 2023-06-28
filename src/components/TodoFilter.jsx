@@ -1,4 +1,4 @@
-const TodoFilter = ({ length, hasCompleted, removeActive, setState }) => (
+const TodoFilter = ({ length, hasCompleted, removeCompleted, setState }) => (
     <div className=" text-sm text-[#808080] flex justify-between bg-slate-800 w-full border-2 border-white">
         <div className="pr-10 pl-5 flex items-center justify-center">
             <span>{length} items left</span>
@@ -26,7 +26,7 @@ const TodoFilter = ({ length, hasCompleted, removeActive, setState }) => (
         <button
             className="p-5 text-sm text-[#808080]"
             style={{ visibility: hasCompleted ? "visible" : "hidden" }}
-            onClick={() => removeActive()}
+            onClick={() => removeCompleted()}
         >
             Clear completed
         </button>
