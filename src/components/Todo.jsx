@@ -41,7 +41,7 @@ const Todo = () => {
         action.toggleStatus(id, status);
     }
 
-    function UpdateList(e, id) {
+    function UpdateList(id, e) {
         action.edit(id, e.currentTarget.innerHTML);
     }
     const toggleAllStatus = () => {

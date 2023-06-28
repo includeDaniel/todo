@@ -27,7 +27,7 @@ const TodoItems = memo(
                     </button>
                     <li
                         contenteditable="true"
-                        onBlur={(e) => UpdateList(e, v.id)}
+                        onBlur={(e) => UpdateList(v.id, e)}
                         style={{
                             textDecoration:
                                 v.status === "completed"
