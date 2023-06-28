@@ -7,7 +7,7 @@
         "build": "next build",
         "start": "next start",
         "lint": "next lint",
-        "test": "jest --watch"
+        "test": "jest --coverage"
     },
     "dependencies": {
         "@testing-library/jest-dom": "^5.16.5",
