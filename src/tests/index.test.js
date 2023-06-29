@@ -157,6 +157,26 @@ describe("useTodo", () => {
             ],
         });
     });
+    test("should filter with status in todo's list", async () => {
+        const { result } = renderHook(() => useTodo());
+        const { action } = result.current;
+
+        act(() => {
+            action.filter("active");
+        });
+        expect(result.current.todo).toStrictEqual({
+            active: 2,
+            completed: 0,
+            items: [
+                { id: "123", value: "batatinha", status: "active" },
+                {
+                    id: "124",
+                    status: "active",
+                    value: "batatinha2",
+                },
+            ],
+        });
+    });
     test("should toggle all status of todo's list", async () => {
         const { result } = renderHook(() => useTodo());
         const { action } = result.current;
