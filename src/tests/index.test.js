@@ -84,6 +84,19 @@ describe("useTodo", () => {
             items: [{ id: "123", value: "batatinha", status: "active" }],
         });
     });
+    test("should don't edit a item in todo's list because of a wrong id", async () => {
+        const { result } = renderHook(() => useTodo());
+        const { action } = result.current;
+
+        act(() => {
+            action.edit("444", "batatinha");
+        });
+        expect(result.current.todo).toStrictEqual({
+            active: 1,
+            completed: 0,
+            items: [{ id: "123", value: "batatinha", status: "active" }],
+        });
+    });
     test("should toggle a item with active status to completed status", async () => {
         const { result } = renderHook(() => useTodo());
         const { action } = result.current;
@@ -103,6 +116,19 @@ describe("useTodo", () => {
 
         act(() => {
             action.toggleStatus("123", "completed");
+        });
+        expect(result.current.todo).toStrictEqual({
+            active: 1,
+            completed: 0,
+            items: [{ id: "123", value: "batatinha", status: "active" }],
+        });
+    });
+    test("should don't toggle a item's status, because is of a different id", async () => {
+        const { result } = renderHook(() => useTodo());
+        const { action } = result.current;
+
+        act(() => {
+            action.toggleStatus("345", "completed");
         });
         expect(result.current.todo).toStrictEqual({
             active: 1,

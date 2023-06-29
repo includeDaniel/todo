@@ -50,8 +50,9 @@ export const useTodo = () => {
                         ...curr,
                         status: nextStatus,
                     };
+                } else {
+                    return curr;
                 }
-                return curr;
             }),
             ...(nextStatus === "completed"
                 ? { active: prev.active - 1, completed: prev.completed + 1 }
