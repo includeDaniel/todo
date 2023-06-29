@@ -136,7 +136,7 @@ describe("useTodo", () => {
     //         items: [{ id: "123", value: "batatinha", status: "active" }],
     //     });
     // });
-    test("should filter with status in todo's list", async () => {
+    test("should filter with all status in todo's list", async () => {
         const { result } = renderHook(() => useTodo());
         const { action } = result.current;
 
@@ -157,7 +157,7 @@ describe("useTodo", () => {
             ],
         });
     });
-    test("should filter with status in todo's list", async () => {
+    test("should filter with a specific status in todo's list", async () => {
         const { result } = renderHook(() => useTodo());
         const { action } = result.current;
 
@@ -197,11 +197,52 @@ describe("useTodo", () => {
             ],
         });
     });
-    test("should remove all items with completed status of todo's list", async () => {
+    test("should toggle all status of todo's list", async () => {
         const { result } = renderHook(() => useTodo());
         const { action } = result.current;
 
         act(() => {
+            action.toggleAllStatus();
+        });
+        expect(result.current.todo).toStrictEqual({
+            active: 2,
+            completed: 0,
+            items: [
+                { id: "123", value: "batatinha", status: "active" },
+                {
+                    id: "124",
+                    status: "active",
+                    value: "batatinha2",
+                },
+            ],
+        });
+    });
+    test("should don't remove the items, because all items are active in todo's list", async () => {
+        const { result } = renderHook(() => useTodo());
+        const { action } = result.current;
+
+        act(() => {
+            action.clearCompleted();
+        });
+        expect(result.current.todo).toStrictEqual({
+            active: 2,
+            completed: 0,
+            items: [
+                { id: "123", value: "batatinha", status: "active" },
+                {
+                    id: "124",
+                    status: "active",
+                    value: "batatinha2",
+                },
+            ],
+        });
+    });
+    test("should don't remove the items, because all items are active in todo's list", async () => {
+        const { result } = renderHook(() => useTodo());
+        const { action } = result.current;
+
+        act(() => {
+            action.toggleAllStatus();
             action.clearCompleted();
         });
         expect(result.current.todo).toStrictEqual({
