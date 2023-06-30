@@ -11,7 +11,7 @@ export interface Todo {
     completed: number;
 }
 
-export const useTodo = () => {
+export const useTodo = (): any => {
     // const [todo, setTodo] = useState(() => {
     //     const localData =
     //         typeof window !== "undefined" &&
