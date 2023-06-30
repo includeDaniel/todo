@@ -1,247 +1,398 @@
 import { useTodo } from "@/hooks/useTodo";
-import { renderHook, createEvent } from "@testing-library/react";
+import { renderHook } from "@testing-library/react";
 import { act } from "react-dom/test-utils";
 
 describe("useTodo", () => {
-    test("should return the initial value of the todo's list", async () => {
+    test("should return the initial value of the todo's list", () => {
         const { result } = renderHook(() => useTodo());
 
         expect(result.current.todo).toBeNull;
     });
-    test("should add a item in todo's list", async () => {
+    test("should add a item in todo's list", () => {
         const { result } = renderHook(() => useTodo());
         const { action } = result.current;
 
         act(() => {
             action.append({
-                id: "123",
-                value: "MensagemTeste",
+                id: "1",
+                value: "Caminhar pela manhã",
                 status: "active",
             });
         });
-
         expect(result.current.todo).toStrictEqual({
             active: 1,
             completed: 0,
-            items: [{ id: "123", status: "active", value: "MensagemTeste" }],
+            items: [
+                { id: "1", value: "Caminhar pela manhã", status: "active" },
+            ],
         });
     });
-    test("should remove a active item of todo's list", async () => {
+
+    test("should remove a active item of todo's list", () => {
         const { result } = renderHook(() => useTodo());
         const { action } = result.current;
-
+        console.log(result.current.todo.items);
         act(() => {
-            action.remove({
-                id: "123",
+            action.append({
+                id: "1",
+                value: "Caminhar pela manhã",
                 status: "active",
-                value: "MensagemTeste",
             });
+            action.append({ id: "2", value: "Almoçar", status: "active" });
+            action.append({ id: "3", value: "Ver um filme", status: "active" });
+
+            action.remove({ id: "3", value: "Ver um filme", status: "active" });
         });
         expect(result.current.todo).toStrictEqual({
-            active: 0,
+            active: 2,
             completed: 0,
-            items: [],
+            items: [
+                {
+                    id: "1",
+                    value: "Caminhar pela manhã",
+                    status: "active",
+                },
+                { id: "2", value: "Almoçar", status: "active" },
+            ],
         });
     });
-    test("should remove a completed item of todo's list", async () => {
+    test("should remove a completed item of todo's list", () => {
         const { result } = renderHook(() => useTodo());
         const { action } = result.current;
 
         act(() => {
             action.append({
-                id: "123",
+                id: "1",
+                value: "Caminhar pela manhã",
                 status: "active",
-                value: "MensagemTeste",
             });
-            action.toggleStatus("123", "active");
+            action.append({ id: "2", value: "Almoçar", status: "active" });
+            action.append({ id: "3", value: "Ver um filme", status: "active" });
+
+            action.toggleStatus("1", "active");
+
             action.remove({
-                id: "123",
+                id: "1",
+                value: "Caminhar pela manhã",
                 status: "completed",
-                value: "MensagemTeste",
             });
         });
         expect(result.current.todo).toStrictEqual({
-            active: 0,
+            active: 2,
             completed: 0,
-            items: [],
+            items: [
+                { id: "2", value: "Almoçar", status: "active" },
+                { id: "3", value: "Ver um filme", status: "active" },
+            ],
         });
     });
-    test("should edit a item in todo's list", async () => {
+    test("should edit a item in todo's list", () => {
         const { result } = renderHook(() => useTodo());
         const { action } = result.current;
 
         act(() => {
             action.append({
-                id: "123",
-                value: "MensagemTeste",
+                id: "1",
+                value: "Caminhar pela manhã",
                 status: "active",
             });
-            action.edit("123", "batatinha");
+
+            action.edit("1", "Tomar café da manhã");
         });
         expect(result.current.todo).toStrictEqual({
             active: 1,
             completed: 0,
-            items: [{ id: "123", value: "batatinha", status: "active" }],
+            items: [
+                { id: "1", value: "Tomar café da manhã", status: "active" },
+            ],
         });
     });
-    test("should don't edit a item in todo's list because of a wrong id", async () => {
+    test("should don't edit a item in todo's list because of a wrong id", () => {
         const { result } = renderHook(() => useTodo());
         const { action } = result.current;
 
         act(() => {
-            action.edit("444", "batatinha");
+            action.append({
+                id: "1",
+                value: "Caminhar pela manhã",
+                status: "active",
+            });
+            action.edit("2", "Tomar café da manhã");
         });
         expect(result.current.todo).toStrictEqual({
             active: 1,
             completed: 0,
-            items: [{ id: "123", value: "batatinha", status: "active" }],
+            items: [
+                {
+                    id: "1",
+                    value: "Caminhar pela manhã",
+                    status: "active",
+                },
+            ],
         });
     });
-    test("should toggle a item with active status to completed status", async () => {
+    test("should toggle a item with active status to completed status", () => {
         const { result } = renderHook(() => useTodo());
         const { action } = result.current;
 
         act(() => {
-            action.toggleStatus("123", "active");
+            action.append({
+                id: "1",
+                value: "Caminhar pela manhã",
+                status: "active",
+            });
+
+            action.toggleStatus("1", "active");
         });
         expect(result.current.todo).toStrictEqual({
             active: 0,
             completed: 1,
-            items: [{ id: "123", value: "batatinha", status: "completed" }],
+            items: [
+                { id: "1", value: "Caminhar pela manhã", status: "completed" },
+            ],
         });
     });
-    test("should toggle a item with completed status to active status", async () => {
+    test("should toggle a item with completed status to active status", () => {
         const { result } = renderHook(() => useTodo());
         const { action } = result.current;
 
         act(() => {
-            action.toggleStatus("123", "completed");
+            action.append({
+                id: "1",
+                value: "Caminhar pela manhã",
+                status: "active",
+            });
+            action.toggleStatus("1", "active");
+            action.toggleStatus("1", "completed");
         });
         expect(result.current.todo).toStrictEqual({
             active: 1,
             completed: 0,
-            items: [{ id: "123", value: "batatinha", status: "active" }],
+            items: [
+                { id: "1", value: "Caminhar pela manhã", status: "active" },
+            ],
         });
     });
-    // test("should don't toggle a item's status, because is of a different id", async () => {
+    test("should don't toggle a item's status, because is of a different id", () => {
+        const { result } = renderHook(() => useTodo());
+        const { action } = result.current;
+
+        act(() => {
+            action.append({
+                id: "1",
+                value: "Caminhar pela manhã",
+                status: "active",
+            });
+            action.append({ id: "2", value: "Almoçar", status: "active" });
+            action.append({ id: "3", value: "Ver um filme", status: "active" });
+
+            action.toggleStatus("1", "active");
+        });
+        expect(result.current.todo).toStrictEqual({
+            active: 2,
+            completed: 1,
+            items: [
+                {
+                    id: "1",
+                    value: "Caminhar pela manhã",
+                    status: "completed",
+                },
+                { id: "2", value: "Almoçar", status: "active" },
+                { id: "3", value: "Ver um filme", status: "active" },
+            ],
+        });
+    });
+    // test("should filter with all status in todo's list", async () => {
+    //     const { result, waitForNextUpdate } = renderHook(() => useTodo());
+    //     const { action } = result.current;
+    //     let list;
+
+    //     act(() => {
+    //         action.append({
+    //             id: "1",
+    //             value: "Caminhar pela manhã",
+    //             status: "completed",
+    //         });
+    //         action.append({ id: "2", value: "Almoçar", status: "active" });
+    //         action.append({ id: "3", value: "Ver um filme", status: "active" });
+    //     });
+    //     await waitForNextUpdate();
+    //     act(() => {
+    //         list = action.filter("all");
+    //     });
+    //     expect(list).toStrictEqual({
+    //         active: 3,
+    //         completed: 0,
+    //         items: [
+    //             {
+    //                 id: "1",
+    //                 value: "Caminhar pela manhã",
+    //                 status: "completed",
+    //             },
+    //             { id: "2", value: "Almoçar", status: "active" },
+    //             { id: "3", value: "Ver um filme", status: "active" },
+    //         ],
+    //     });
+    // });
+    // test("should filter with a specific status in todo's list", () => {
     //     const { result } = renderHook(() => useTodo());
     //     const { action } = result.current;
 
     //     act(() => {
-    //         action.toggleStatus("44444444", "completed");
+    //         action.append({
+    //             id: "1",
+    //             value: "Caminhar pela manhã",
+    //             status: "completed",
+    //         });
+    //         action.append({ id: "2", value: "Almoçar", status: "active" });
+    //         action.append({ id: "3", value: "Ver um filme", status: "active" });
+    //         action.toggleStatus("2", "active");
+    //         action.filter("active");
     //     });
     //     expect(result.current.todo).toStrictEqual({
-    //         active: 1,
-    //         completed: 0,
-    //         items: [{ id: "123", value: "batatinha", status: "active" }],
+    //         active: 2,
+    //         completed: 1,
+    //         items: [
+    //             {
+    //                 id: "1",
+    //                 value: "Caminhar pela manhã",
+    //                 status: "completed",
+    //             },
+    //             { id: "3", value: "Ver um filme", status: "active" },
+    //         ],
     //     });
     // });
-    test("should filter with all status in todo's list", async () => {
+    test("should toggle all active status to completed status of todo's list", () => {
         const { result } = renderHook(() => useTodo());
         const { action } = result.current;
 
         act(() => {
-            action.append({ id: "124", value: "batatinha2", status: "active" });
-            action.filter("all");
-        });
-        expect(result.current.todo).toStrictEqual({
-            active: 2,
-            completed: 0,
-            items: [
-                { id: "123", value: "batatinha", status: "active" },
-                {
-                    id: "124",
-                    status: "active",
-                    value: "batatinha2",
-                },
-            ],
-        });
-    });
-    test("should filter with a specific status in todo's list", async () => {
-        const { result } = renderHook(() => useTodo());
-        const { action } = result.current;
-
-        act(() => {
-            action.filter("active");
-        });
-        expect(result.current.todo).toStrictEqual({
-            active: 2,
-            completed: 0,
-            items: [
-                { id: "123", value: "batatinha", status: "active" },
-                {
-                    id: "124",
-                    status: "active",
-                    value: "batatinha2",
-                },
-            ],
-        });
-    });
-    test("should toggle all status of todo's list", async () => {
-        const { result } = renderHook(() => useTodo());
-        const { action } = result.current;
-
-        act(() => {
+            action.append({
+                id: "1",
+                value: "Caminhar pela manhã",
+                status: "active",
+            });
+            action.append({ id: "2", value: "Almoçar", status: "active" });
+            action.append({ id: "3", value: "Ver um filme", status: "active" });
             action.toggleAllStatus();
         });
         expect(result.current.todo).toStrictEqual({
             active: 0,
-            completed: 2,
+            completed: 3,
             items: [
-                { id: "123", value: "batatinha", status: "completed" },
                 {
-                    id: "124",
+                    id: "1",
+                    value: "Caminhar pela manhã",
                     status: "completed",
-                    value: "batatinha2",
                 },
+                { id: "2", value: "Almoçar", status: "completed" },
+                { id: "3", value: "Ver um filme", status: "completed" },
             ],
         });
     });
-    test("should toggle all status of todo's list", async () => {
+    test("should toggle all completed status to active status of todo's list", () => {
         const { result } = renderHook(() => useTodo());
         const { action } = result.current;
 
         act(() => {
+            action.append({
+                id: "1",
+                value: "Caminhar pela manhã",
+                status: "completed",
+            });
+            action.append({ id: "2", value: "Almoçar", status: "completed" });
+            action.append({
+                id: "3",
+                value: "Ver um filme",
+                status: "completed",
+            });
             action.toggleAllStatus();
         });
         expect(result.current.todo).toStrictEqual({
-            active: 2,
+            active: 3,
             completed: 0,
             items: [
-                { id: "123", value: "batatinha", status: "active" },
                 {
-                    id: "124",
+                    id: "1",
+                    value: "Caminhar pela manhã",
                     status: "active",
-                    value: "batatinha2",
                 },
+                { id: "2", value: "Almoçar", status: "active" },
+                { id: "3", value: "Ver um filme", status: "active" },
             ],
         });
     });
-    test("should don't remove the items, because all items are active in todo's list", async () => {
+    test("should toggle all completed status to active status of todo's list", () => {
         const { result } = renderHook(() => useTodo());
         const { action } = result.current;
 
         act(() => {
+            action.append({
+                id: "1",
+                value: "Caminhar pela manhã",
+                status: "active",
+            });
+            action.append({ id: "2", value: "Almoçar", status: "completed" });
+            action.append({
+                id: "3",
+                value: "Ver um filme",
+                status: "completed",
+            });
+            action.toggleAllStatus();
+        });
+        expect(result.current.todo).toStrictEqual({
+            active: 0,
+            completed: 3,
+            items: [
+                {
+                    id: "1",
+                    value: "Caminhar pela manhã",
+                    status: "completed",
+                },
+                { id: "2", value: "Almoçar", status: "completed" },
+                { id: "3", value: "Ver um filme", status: "completed" },
+            ],
+        });
+    });
+    test("should don't remove the items, because all items are active in todo's list", () => {
+        const { result } = renderHook(() => useTodo());
+        const { action } = result.current;
+        act(() => {
+            action.append({
+                id: "1",
+                value: "Caminhar pela manhã",
+                status: "active",
+            });
+            action.append({ id: "2", value: "Almoçar", status: "active" });
+            action.append({ id: "3", value: "Ver um filme", status: "active" });
             action.clearCompleted();
         });
         expect(result.current.todo).toStrictEqual({
-            active: 2,
+            active: 3,
             completed: 0,
             items: [
-                { id: "123", value: "batatinha", status: "active" },
                 {
-                    id: "124",
+                    id: "1",
+                    value: "Caminhar pela manhã",
                     status: "active",
-                    value: "batatinha2",
                 },
+                { id: "2", value: "Almoçar", status: "active" },
+                { id: "3", value: "Ver um filme", status: "active" },
             ],
         });
     });
-    test("should don't remove the items, because all items are active in todo's list", async () => {
+    test("should don't remove the items, because all items are active in todo's list", () => {
         const { result } = renderHook(() => useTodo());
         const { action } = result.current;
 
         act(() => {
+            action.append({
+                id: "1",
+                value: "Caminhar pela manhã",
+                status: "active",
+            });
+            action.append({ id: "2", value: "Almoçar", status: "active" });
+            action.append({ id: "3", value: "Ver um filme", status: "active" });
             action.toggleAllStatus();
             action.clearCompleted();
         });

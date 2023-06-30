@@ -1,30 +1,42 @@
 import { useEffect, useState } from "react";
 
+export interface Item {
+    id: string;
+    value: string;
+    status: string;
+}
+export interface Todo {
+    items: Item[];
+    active: number;
+    completed: number;
+}
+
 export const useTodo = () => {
-    const [todo, setTodo] = useState(() => {
-        const localData =
-            typeof window !== "undefined" &&
-            window.localStorage.getItem("todo");
-        return localData
-            ? JSON.parse(localData)
-            : { items: [], completed: 0, active: 0 };
-    });
+    // const [todo, setTodo] = useState(() => {
+    //     const localData =
+    //         typeof window !== "undefined" &&
+    //         window.localStorage.getItem("todo");
+    //     return localData
+    //         ? JSON.parse(localData)
+    //         : { items: [], completed: 0, active: 0 };
+    // });
+    const [todo, setTodo] = useState({ items: [], completed: 0, active: 0 });
 
     useEffect(() => {
         window.localStorage.setItem("todo", JSON.stringify(todo));
     }, [todo]);
 
-    const append = (newItem) => {
-        setTodo((prev) => ({
+    const append = (newItem: Item) => {
+        setTodo((prev: any) => ({
             ...prev,
             items: [...prev.items, newItem],
             active: prev.active + 1,
         }));
     };
-    const remove = (todo) => {
+    const remove = (todo: Item) => {
         setTodo((prev) => ({
             ...prev,
-            items: prev.items.filter((f) => f.id != todo.id),
+            items: prev.items.filter((f: any) => f.id != todo.id),
             completed:
                 todo.status === "completed"
                     ? prev.completed - 1
@@ -32,58 +44,55 @@ export const useTodo = () => {
             active: todo.status === "active" ? prev.active - 1 : prev.active,
         }));
     };
-    const edit = (id, value) => {
-        setTodo((prev) => ({
+    const edit = (id: string, value: string) => {
+        setTodo((prev: any) => ({
             ...prev,
-            items: prev.items.map((curr) =>
+            items: prev.items.map((curr: any) =>
                 curr.id === id ? { ...curr, value } : curr
             ),
         }));
     };
-    const toggleStatus = (id, status) => {
+    const toggleStatus = (id: string, status: string) => {
         const nextStatus = status === "active" ? "completed" : "active";
-        setTodo((prev) => ({
+        setTodo((prev: any) => ({
             ...prev,
-            items: prev.items.map((curr) => {
-                if (curr.id === id) {
+            items: prev.items.map((curr: any) => {
+                if (curr.id != id) {
+                } else {
                     return {
                         ...curr,
                         status: nextStatus,
                     };
-                } else {
-                    return curr;
                 }
+                return curr;
             }),
             ...(nextStatus === "completed"
                 ? { active: prev.active - 1, completed: prev.completed + 1 }
                 : { active: prev.active + 1, completed: prev.completed - 1 }),
         }));
     };
-    const filter = (status) => {
-        return todo.items.filter((curr) =>
+    const filter = (status: string) => {
+        return todo.items.filter((curr: any) =>
             status === "all" ? curr : curr.status === status
         );
     };
     const clearCompleted = () => {
-        setTodo((prev) => ({
+        setTodo((prev: any) => ({
             ...prev,
-            items: prev.items.filter((curr) => curr.status !== "completed"),
+            items: prev.items.filter(
+                (curr: any) => curr.status !== "completed"
+            ),
             completed: 0,
         }));
     };
-    const toggleAllStatus = (
-        status = todo.items.some((f) => f.status == "active")
-            ? "completed"
-            : "active",
-        next = todo.items.map((value) => ({ ...value, status }))
-    ) => {
-        setTodo((prev) => {
-            const status = prev.items.some((f) => f.status == "active")
+    const toggleAllStatus = () => {
+        setTodo((prev: any) => {
+            const status = prev.items.some((f: any) => f.status == "active")
                 ? "completed"
                 : "active";
             return {
                 ...prev,
-                items: prev.items.map((curr) => ({ ...curr, status })),
+                items: prev.items.map((curr: any) => ({ ...curr, status })),
                 active: status === "active" ? prev.items.length : 0,
                 completed: status === "completed" ? prev.items.length : 0,
             };

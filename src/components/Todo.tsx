@@ -3,14 +3,14 @@ import { useState } from "react";
 import { TodoFilter } from "./TodoFilter";
 import { TodoItems } from "./TodoItems";
 import { TodoInput } from "./TodoInput";
-import { useTodo } from "@/hooks/useTodo";
+import { useTodo, Item } from "../hooks/useTodo";
 
 const Todo = () => {
     const [input, setInput] = useState("");
     const [state, setState] = useState("all");
     const { todo, action } = useTodo();
 
-    function handleChange(e) {
+    function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
         setInput(e.target.value);
     }
 
@@ -23,7 +23,7 @@ const Todo = () => {
         setInput("");
     }
 
-    function removeItem(todo) {
+    function removeItem(todo: Item) {
         action.remove(todo);
     }
 
@@ -31,17 +31,17 @@ const Todo = () => {
         action.clearCompleted();
     }
 
-    const handleKeyDown = (e) => {
+    const handleKeyDown = (e: any) => {
         if (e.key === "Enter") {
             handleClick();
         }
     };
 
-    function toggleStatus(id, status) {
+    function toggleStatus(id: string, status: string) {
         action.toggleStatus(id, status);
     }
 
-    function UpdateList(id, e) {
+    function UpdateList(id: string, e: React.ChangeEvent<HTMLInputElement>) {
         action.edit(id, e.currentTarget.innerHTML);
     }
     const toggleAllStatus = () => {
