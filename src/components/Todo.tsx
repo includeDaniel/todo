@@ -1,9 +1,9 @@
 import React from "react";
 import { useState } from "react";
-import { TodoFilter } from "./TodoFilter";
 import { TodoItems } from "./TodoItems";
-import { TodoInput } from "./TodoInput";
 import { useTodo, Item } from "../hooks/useTodo";
+import { TodoFilter } from "./TodoFilter";
+import { TodoInput } from "./TodoInput";
 
 const Todo = () => {
     const [input, setInput] = useState("");
@@ -47,7 +47,6 @@ const Todo = () => {
     const toggleAllStatus = () => {
         action.toggleAllStatus();
     };
-    console.log(todo);
     return (
         <>
             <div

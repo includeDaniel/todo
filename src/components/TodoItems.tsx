@@ -1,7 +1,15 @@
 import { memo } from "react";
 
+interface TodoItems {
+    action: any;
+    state: string;
+    toggleStatus: any;
+    removeItem: any;
+    UpdateList: any;
+}
+
 const TodoItems = memo(
-    (action: any, { state, toggleStatus, UpdateList, removeItem }) => {
+    ({ action, state, toggleStatus, UpdateList, removeItem }: TodoItems) => {
         return action.filter(state).map((v: any) => (
             <ul
                 className=" w-full border-2 border-white"
@@ -27,7 +35,7 @@ const TodoItems = memo(
                     </button>
                     <li
                         contentEditable="true"
-                        onBlur={(e) => UpdateList(v.id, e)}
+                        onBlur={(e: any) => UpdateList(v.id, e)}
                         style={{
                             textDecoration:
                                 v.status === "completed"

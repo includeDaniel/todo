@@ -1,4 +1,16 @@
-const TodoFilter = ({ length, hasCompleted, removeCompleted, setState }) => (
+interface TodoFilter {
+    length: number;
+    hasCompleted: boolean;
+    removeCompleted: any;
+    setState: any;
+}
+
+const TodoFilter = ({
+    length,
+    hasCompleted,
+    removeCompleted,
+    setState,
+}: TodoFilter) => (
     <>
         <div className=" text-sm text-[#808080] flex justify-between bg-slate-800 w-full border-2 border-white">
             <div className="pr-10 pl-5 flex items-center justify-center">
