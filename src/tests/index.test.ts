@@ -1,6 +1,6 @@
-import { useTodo } from "@/hooks/useTodo";
 import { renderHook } from "@testing-library/react";
 import { act } from "react-dom/test-utils";
+import { useTodo } from "../hooks/useTodo";
 
 describe("useTodo", () => {
     test("should return the initial value of the todo's list", () => {
