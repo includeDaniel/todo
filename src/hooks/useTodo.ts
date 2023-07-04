@@ -12,19 +12,23 @@ export type Todo = {
 };
 
 export const useTodo = () => {
-    // const [todo, setTodo] = useState(() => {
-    //     const localData =
-    //         typeof window !== "undefined" &&
-    //         window.localStorage.getItem("todo");
-    //     return localData
-    //         ? JSON.parse(localData)
-    //         : { items: [], completed: 0, active: 0 };
-    // });
-    const [todo, setTodo] = useState<Todo>({
-        items: [],
-        completed: 0,
-        active: 0,
+    const [todo, setTodo] = useState<Todo>(() => {
+        const localData =
+            typeof window !== "undefined" &&
+            window.localStorage.getItem("todo");
+        try {
+            return localData
+                ? (JSON.parse(localData) as Todo)
+                : { items: [], completed: 0, active: 0 };
+        } catch {
+            return { items: [], completed: 0, active: 0 };
+        }
     });
+    // const [todo, setTodo] = useState<Todo>({
+    //     items: [],
+    //     completed: 0,
+    //     active: 0,
+    // });
 
     useEffect(() => {
         window.localStorage.setItem("todo", JSON.stringify(todo));
