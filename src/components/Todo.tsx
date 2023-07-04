@@ -7,13 +7,12 @@ import { TodoInput } from "./TodoInput";
 
 const Todo = () => {
     const [input, setInput] = useState("");
-    const [state, setState] = useState("all");
+    const [state, setState] = useState<Item["status"]>("all");
     const { todo, action } = useTodo();
 
     function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
         setInput(e.target.value);
     }
-
     function handleClick() {
         action.append({
             id: crypto.randomUUID(),
@@ -23,8 +22,8 @@ const Todo = () => {
         setInput("");
     }
 
-    function removeItem(todo: Item) {
-        action.remove(todo);
+    function removeItem(item: Item) {
+        action.remove(item);
     }
 
     function removeCompleted() {
@@ -37,11 +36,14 @@ const Todo = () => {
         }
     };
 
-    function toggleStatus(id: string, status: string) {
+    function toggleStatus(id: Item["id"], status: Item["status"]) {
         action.toggleStatus(id, status);
     }
 
-    function UpdateList(id: string, e: React.ChangeEvent<HTMLInputElement>) {
+    function UpdateList(
+        id: Item["id"],
+        e: React.ChangeEvent<HTMLInputElement>
+    ) {
         action.edit(id, e.currentTarget.innerHTML);
     }
     const toggleAllStatus = () => {

@@ -1,16 +1,16 @@
-interface TodoInput {
+type TodoInputProps = {
     input: string;
-    handleChange: any;
-    handleKeyDown: any;
-    toggleAllStatus: any;
-}
+    handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    handleKeyDown: (e: any) => void;
+    toggleAllStatus: () => void;
+};
 
 const TodoInput = ({
     input,
     handleChange,
     handleKeyDown,
     toggleAllStatus,
-}: TodoInput) => (
+}: TodoInputProps) => (
     <div className="w-full flex items-center justify-center ">
         <button
             className="w-18 h-16 cursor-pointer border-2 border-white-800"

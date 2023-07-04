@@ -1,17 +1,17 @@
 import { useEffect, useState } from "react";
 
-export interface Item {
+export type Item = {
     id: string;
     value: string;
-    status: string;
-}
-export interface Todo {
+    status: "completed" | "active" | "all";
+};
+export type Todo = {
     items: Item[];
     active: number;
     completed: number;
-}
+};
 
-export const useTodo = (): any => {
+export const useTodo = () => {
     // const [todo, setTodo] = useState(() => {
     //     const localData =
     //         typeof window !== "undefined" &&
@@ -20,43 +20,47 @@ export const useTodo = (): any => {
     //         ? JSON.parse(localData)
     //         : { items: [], completed: 0, active: 0 };
     // });
-    const [todo, setTodo] = useState({ items: [], completed: 0, active: 0 });
+    const [todo, setTodo] = useState<Todo>({
+        items: [],
+        completed: 0,
+        active: 0,
+    });
 
     useEffect(() => {
         window.localStorage.setItem("todo", JSON.stringify(todo));
     }, [todo]);
 
     const append = (newItem: Item) => {
-        setTodo((prev: any) => ({
+        setTodo((prev) => ({
             ...prev,
             items: [...prev.items, newItem],
             active: prev.active + 1,
         }));
     };
-    const remove = (todo: Item) => {
+    const remove = (item: Item) => {
         setTodo((prev) => ({
             ...prev,
-            items: prev.items.filter((f: any) => f.id != todo.id),
+            items: prev.items.filter((f) => f.id != item.id),
             completed:
-                todo.status === "completed"
+                item.status === "completed"
                     ? prev.completed - 1
                     : prev.completed,
-            active: todo.status === "active" ? prev.active - 1 : prev.active,
+            active: item.status === "active" ? prev.active - 1 : prev.active,
         }));
     };
-    const edit = (id: string, value: string) => {
-        setTodo((prev: any) => ({
+    const edit = (id: Item["id"], value: Item["value"]) => {
+        setTodo((prev) => ({
             ...prev,
-            items: prev.items.map((curr: any) =>
+            items: prev.items.map((curr) =>
                 curr.id === id ? { ...curr, value } : curr
             ),
         }));
     };
-    const toggleStatus = (id: string, status: string) => {
+    const toggleStatus = (id: Item["id"], status: Item["status"]) => {
         const nextStatus = status === "active" ? "completed" : "active";
-        setTodo((prev: any) => ({
+        setTodo((prev) => ({
             ...prev,
-            items: prev.items.map((curr: any) => {
+            items: prev.items.map((curr) => {
                 if (curr.id != id) {
                 } else {
                     return {
@@ -71,34 +75,31 @@ export const useTodo = (): any => {
                 : { active: prev.active + 1, completed: prev.completed - 1 }),
         }));
     };
-    const filter = (status: string) => {
-        return todo.items.filter((curr: any) =>
+    const filter = (status: Item["status"]) => {
+        return todo.items.filter((curr) =>
             status === "all" ? curr : curr.status === status
         );
     };
     const clearCompleted = () => {
-        setTodo((prev: any) => ({
+        setTodo((prev) => ({
             ...prev,
-            items: prev.items.filter(
-                (curr: any) => curr.status !== "completed"
-            ),
+            items: prev.items.filter((curr) => curr.status !== "completed"),
             completed: 0,
         }));
     };
     const toggleAllStatus = () => {
-        setTodo((prev: any) => {
-            const status = prev.items.some((f: any) => f.status == "active")
+        setTodo((prev) => {
+            const status = prev.items.some((f) => f.status == "active")
                 ? "completed"
                 : "active";
             return {
                 ...prev,
-                items: prev.items.map((curr: any) => ({ ...curr, status })),
+                items: prev.items.map((curr) => ({ ...curr, status })),
                 active: status === "active" ? prev.items.length : 0,
                 completed: status === "completed" ? prev.items.length : 0,
             };
         });
     };
-
     return {
         todo,
         action: {
@@ -112,3 +113,5 @@ export const useTodo = (): any => {
         },
     };
 };
+
+export type useTodoType = ReturnType<typeof useTodo>;

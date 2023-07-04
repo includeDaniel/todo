@@ -1,17 +1,28 @@
 import { memo } from "react";
+import { Item, useTodoType } from "../hooks/useTodo";
 
-interface TodoItems {
-    action: any;
-    state: string;
-    toggleStatus: any;
-    removeItem: any;
-    UpdateList: any;
-}
+type TodoItemsProps = {
+    action: useTodoType["action"];
+    state: Item["status"];
+    toggleStatus: (id: Item["id"], status: Item["status"]) => void;
+    removeItem: (item: Item) => void;
+    UpdateList: (
+        id: Item["id"],
+        e: React.ChangeEvent<HTMLInputElement>
+    ) => void;
+};
 
 const TodoItems = memo(
-    ({ action, state, toggleStatus, UpdateList, removeItem }: TodoItems) => {
+    ({
+        action,
+        state,
+        toggleStatus,
+        UpdateList,
+        removeItem,
+    }: TodoItemsProps) => {
         return action.filter(state).map((v: any) => (
             <ul
+                key={v.i}
                 className=" w-full border-2 border-white"
                 style={{ listStyleType: "none" }}
             >

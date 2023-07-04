@@ -1,6 +1,6 @@
 import { renderHook } from "@testing-library/react";
 import { act } from "react-dom/test-utils";
-import { useTodo } from "../hooks/useTodo";
+import { Todo, useTodo } from "../hooks/useTodo";
 
 describe("useTodo", () => {
     test("should return the initial value of the todo's list", () => {
@@ -31,7 +31,7 @@ describe("useTodo", () => {
     test("should remove a active item of todo's list", () => {
         const { result } = renderHook(() => useTodo());
         const { action } = result.current;
-        console.log(result.current.todo.items);
+
         act(() => {
             action.append({
                 id: "1",
