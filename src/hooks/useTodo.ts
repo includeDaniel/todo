@@ -15,10 +15,11 @@ export const useTodo = (
     initialProps = { items: [], completed: 0, active: 0 } as Todo
 ) => {
     const [todo, setTodo] = useState(() => {
-        const localData =
-            typeof window !== "undefined" &&
-            window.localStorage.getItem("todo");
         try {
+            const localData =
+                typeof window !== "undefined" &&
+                window.localStorage.getItem("todo");
+            console.log(localData);
             return localData ? (JSON.parse(localData) as Todo) : initialProps;
         } catch {
             return initialProps;

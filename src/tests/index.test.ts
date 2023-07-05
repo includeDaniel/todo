@@ -4,13 +4,25 @@ import { useTodo } from "../hooks/useTodo";
 
 describe("useTodo", () => {
     beforeEach(() => {
-        window.localStorage.clear();
+        Object.defineProperty(window, "localStorage", {
+            value: {
+                getItem: jest.fn(),
+                setItem: jest.fn(),
+            },
+        });
     });
 
-    test("should return the initial value of the todo's list", () => {
+    test("1", () => {
+        window.localStorage.getItem = jest
+            .fn()
+            .mockReturnValueOnce("Invalid JSON");
         const { result } = renderHook(() => useTodo());
 
-        expect(result.current.todo).toBeNull;
+        expect(result.current.todo).toStrictEqual({
+            items: [],
+            completed: 0,
+            active: 0,
+        });
     });
     test("should add a item in todo's list", () => {
         const { result } = renderHook(() => useTodo());
