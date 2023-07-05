@@ -22,7 +22,7 @@ const TodoItems = memo(
         UpdateList,
         removeItem,
     }: TodoItemsProps) => {
-        return action.filter(state, todo).map((v: any) => (
+        return action.filter(state).map((v: any) => (
             <ul
                 key={v.i}
                 className=" w-full border-2 border-white"

@@ -11,17 +11,17 @@ export type Todo = {
     completed: number;
 };
 
-export const useTodo = () => {
-    const [todo, setTodo] = useState<Todo>(() => {
+export const useTodo = (
+    initialProps = { items: [], completed: 0, active: 0 } as Todo
+) => {
+    const [todo, setTodo] = useState(() => {
         const localData =
             typeof window !== "undefined" &&
             window.localStorage.getItem("todo");
         try {
-            return localData
-                ? (JSON.parse(localData) as Todo)
-                : { items: [], completed: 0, active: 0 };
+            return localData ? (JSON.parse(localData) as Todo) : initialProps;
         } catch {
-            return { items: [], completed: 0, active: 0 };
+            return initialProps;
         }
     });
 
@@ -74,7 +74,7 @@ export const useTodo = () => {
                 : { active: prev.active + 1, completed: prev.completed - 1 }),
         }));
     };
-    const filter = (status: Item["status"], todo: Todo) => {
+    const filter = (status: Item["status"]) => {
         return todo.items.filter((curr) =>
             status === "all" ? curr : curr.status === status
         );
