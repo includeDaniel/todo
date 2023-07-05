@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { Item, useTodoType } from "../hooks/useTodo";
+import { Item, useTodo, useTodoType } from "../hooks/useTodo";
 
 type TodoItemsProps = {
     action: useTodoType["action"];
@@ -12,6 +12,8 @@ type TodoItemsProps = {
     ) => void;
 };
 
+const { todo, action } = useTodo();
+
 const TodoItems = memo(
     ({
         action,
@@ -20,7 +22,7 @@ const TodoItems = memo(
         UpdateList,
         removeItem,
     }: TodoItemsProps) => {
-        return action.filter(state).map((v: any) => (
+        return action.filter(state, todo).map((v: any) => (
             <ul
                 key={v.i}
                 className=" w-full border-2 border-white"

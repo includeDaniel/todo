@@ -24,11 +24,6 @@ export const useTodo = () => {
             return { items: [], completed: 0, active: 0 };
         }
     });
-    // const [todo, setTodo] = useState<Todo>({
-    //     items: [],
-    //     completed: 0,
-    //     active: 0,
-    // });
 
     useEffect(() => {
         window.localStorage.setItem("todo", JSON.stringify(todo));
@@ -79,7 +74,7 @@ export const useTodo = () => {
                 : { active: prev.active + 1, completed: prev.completed - 1 }),
         }));
     };
-    const filter = (status: Item["status"]) => {
+    const filter = (status: Item["status"], todo: Todo) => {
         return todo.items.filter((curr) =>
             status === "all" ? curr : curr.status === status
         );

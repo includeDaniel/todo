@@ -1,6 +1,6 @@
 import { renderHook } from "@testing-library/react";
 import { act } from "react-dom/test-utils";
-import { Todo, useTodo } from "../hooks/useTodo";
+import { useTodo } from "../hooks/useTodo";
 
 describe("useTodo", () => {
     beforeEach(() => {
@@ -207,7 +207,7 @@ describe("useTodo", () => {
         });
     });
     test("should filter with all status in todo's list", async () => {
-        const { result, waitForNextUpdate } = renderHook(() => useTodo());
+        const { result } = renderHook(() => useTodo());
         const { action } = result.current;
         let list;
 
@@ -220,51 +220,37 @@ describe("useTodo", () => {
             action.append({ id: "2", value: "Almoçar", status: "active" });
             action.append({ id: "3", value: "Ver um filme", status: "active" });
         });
-        await waitForNextUpdate();
-        act(() => {
-            list = action.filter("all");
-        });
-        expect(list).toStrictEqual({
-            active: 3,
-            completed: 0,
-            items: [
-                {
-                    id: "1",
-                    value: "Caminhar pela manhã",
-                    status: "completed",
-                },
-                { id: "2", value: "Almoçar", status: "active" },
-                { id: "3", value: "Ver um filme", status: "active" },
-            ],
-        });
+        list = action.filter("all", result.current.todo).map((v) => v);
+        expect(list).toStrictEqual([
+            { id: "1", status: "completed", value: "Caminhar pela manhã" },
+            { id: "2", status: "active", value: "Almoçar" },
+            { id: "3", status: "active", value: "Ver um filme" },
+        ]);
     });
     test("should filter with a specific status in todo's list", () => {
         const { result } = renderHook(() => useTodo());
         const { action } = result.current;
+        let list;
 
         act(() => {
             action.append({
                 id: "1",
                 value: "Caminhar pela manhã",
-                status: "completed",
+                status: "active",
             });
             action.append({ id: "2", value: "Almoçar", status: "active" });
             action.append({ id: "3", value: "Ver um filme", status: "active" });
             action.toggleStatus("2", "active");
-            action.filter("active");
         });
-        expect(result.current.todo).toStrictEqual({
-            active: 2,
-            completed: 1,
-            items: [
-                {
-                    id: "1",
-                    value: "Caminhar pela manhã",
-                    status: "completed",
-                },
-                { id: "3", value: "Ver um filme", status: "active" },
-            ],
-        });
+        list = action.filter("active", result.current.todo).map((v) => v);
+        expect(list).toStrictEqual([
+            {
+                id: "1",
+                value: "Caminhar pela manhã",
+                status: "active",
+            },
+            { id: "3", value: "Ver um filme", status: "active" },
+        ]);
     });
     test("should toggle all active status to completed status of todo's list", () => {
         const { result } = renderHook(() => useTodo());
