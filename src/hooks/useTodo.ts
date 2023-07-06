@@ -19,7 +19,6 @@ export const useTodo = (
             const localData =
                 typeof window !== "undefined" &&
                 window.localStorage.getItem("todo");
-            console.log(localData);
             return localData ? (JSON.parse(localData) as Todo) : initialProps;
         } catch {
             return initialProps;

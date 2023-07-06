@@ -12,7 +12,7 @@ describe("useTodo", () => {
         });
     });
 
-    test("1", () => {
+    test("should return the initial value of todo's list when someting goes wrong", () => {
         window.localStorage.getItem = jest
             .fn()
             .mockReturnValueOnce("Invalid JSON");
