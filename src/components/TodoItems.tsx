@@ -12,8 +12,6 @@ type TodoItemsProps = {
     ) => void;
 };
 
-const { todo, action } = useTodo();
-
 const TodoItems = memo(
     ({
         action,
