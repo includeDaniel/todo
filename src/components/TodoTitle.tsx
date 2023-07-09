@@ -1,5 +1,5 @@
 type TodoTitleProps = {
-    children: JSX.Element;
+    children: string;
 };
 
 const TodoTitle = ({ children }: TodoTitleProps) => (
