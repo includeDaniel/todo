@@ -9,10 +9,10 @@ type TodoProps = (() => JSX.Element) & {
     Filter?: typeof TodoFilter;
     Input?: typeof TodoInput;
     Items?: typeof TodoItems;
-    Title?: typeof TodoTitle;
+    Title: typeof TodoTitle;
 };
 
-const Todo = ({ children }: TodoProps) => {
+const Todo = ({ children }: { children: JSX.Element }) => {
     return (
         <>
             <div
