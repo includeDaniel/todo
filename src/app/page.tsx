@@ -1,11 +1,11 @@
 "use client";
 import React, { useState } from "react";
-import { Todo } from "../components/Todo";
-import { TodoTitle } from "../components/TodoTitle";
+import { Todo } from "../components/todo/Todo";
+import { TodoTitle } from "../components/todo/TodoTitle";
 import { Item, useTodo } from "../hooks/useTodo";
-import { TodoInput } from "../components/TodoInput";
-import { TodoItems } from "../components/TodoItems";
-import { TodoFilter } from "../components/TodoFilter";
+import { TodoInput } from "../components/todo/TodoInput";
+import { TodoFilter } from "../components/todo/TodoFilter";
+import { TodoItems } from "../components/todo/TodoItems";
 
 export default function Home() {
     const [input, setInput] = useState("");

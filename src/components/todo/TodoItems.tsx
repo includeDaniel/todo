@@ -1,5 +1,5 @@
 import { memo } from "react";
-import { Item, useTodo, useTodoType } from "../hooks/useTodo";
+import { Item, useTodo, useTodoType } from "../../hooks/useTodo";
 
 type TodoItemsProps = {
     action: useTodoType["action"];
