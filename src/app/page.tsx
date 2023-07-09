@@ -1,11 +1,7 @@
 "use client";
 import React, { useState } from "react";
-import { Todo } from "../components/todo/Todo";
-import { TodoTitle } from "../components/todo/TodoTitle";
+import Todo from "../components/todo";
 import { Item, useTodo } from "../hooks/useTodo";
-import { TodoInput } from "../components/todo/TodoInput";
-import { TodoFilter } from "../components/todo/TodoFilter";
-import { TodoItems } from "../components/todo/TodoItems";
 
 export default function Home() {
     const [input, setInput] = useState("");
@@ -53,23 +49,23 @@ export default function Home() {
     };
     return (
         <div className="w-full flex items-center center flex-col min-h-screen max-h-max bg-slate-400">
-            <TodoTitle>My Tasks</TodoTitle>
+            <Todo.Title>My Tasks</Todo.Title>
             <Todo>
                 <>
-                    <TodoInput
+                    <Todo.Input
                         input={input}
                         handleChange={handleChange}
                         handleKeyDown={handleKeyDown}
                         toggleAllStatus={toggleAllStatus}
                     />
-                    <TodoItems
+                    <Todo.Items
                         action={action}
                         state={state}
                         removeItem={removeItem}
                         toggleStatus={toggleStatus}
                         UpdateList={UpdateList}
                     />
-                    <TodoFilter
+                    <Todo.Filter
                         length={todo.active}
                         hasCompleted={todo.completed > 0}
                         removeCompleted={removeCompleted}

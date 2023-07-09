@@ -1,7 +1,15 @@
-import React from "react";
+import React, { ReactNode } from "react";
+import TodoFilter from "./TodoFilter";
+import TodoInput from "./TodoInput";
+import TodoItems from "./TodoItems";
+import TodoTitle from "./TodoTitle";
 
-type TodoProps = {
-    children: JSX.Element;
+type TodoProps = (() => JSX.Element) & {
+    children: ReactNode;
+    Filter?: typeof TodoFilter;
+    Input?: typeof TodoInput;
+    Items?: typeof TodoItems;
+    Title?: typeof TodoTitle;
 };
 
 const Todo = ({ children }: TodoProps) => {
@@ -16,4 +24,4 @@ const Todo = ({ children }: TodoProps) => {
         </>
     );
 };
-export { Todo };
+export default Todo as TodoProps;
