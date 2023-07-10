@@ -51,27 +51,25 @@ export default function Home() {
         <div className="w-full flex items-center center flex-col min-h-screen max-h-max bg-slate-400">
             <Todo.Title>My Tasks</Todo.Title>
             <Todo>
-                <>
-                    <Todo.Input
-                        input={input}
-                        handleChange={handleChange}
-                        handleKeyDown={handleKeyDown}
-                        toggleAllStatus={toggleAllStatus}
-                    />
-                    <Todo.Items
-                        action={action}
-                        state={state}
-                        removeItem={removeItem}
-                        toggleStatus={toggleStatus}
-                        UpdateList={UpdateList}
-                    />
-                    <Todo.Filter
-                        length={todo.active}
-                        hasCompleted={todo.completed > 0}
-                        removeCompleted={removeCompleted}
-                        setState={setState}
-                    />
-                </>
+                <Todo.Input
+                    input={input}
+                    handleChange={handleChange}
+                    handleKeyDown={handleKeyDown}
+                    toggleAllStatus={toggleAllStatus}
+                />
+                <Todo.Items
+                    action={action}
+                    state={state}
+                    removeItem={removeItem}
+                    toggleStatus={toggleStatus}
+                    UpdateList={UpdateList}
+                />
+                <Todo.Filter
+                    length={todo.active}
+                    hasCompleted={todo.completed > 0}
+                    removeCompleted={removeCompleted}
+                    setState={setState}
+                />
             </Todo>
         </div>
     );

@@ -1,4 +1,4 @@
-type TodoFilterProps = (() => JSX.Element) & {
+type TodoFilterProps = {
     length: number;
     hasCompleted: boolean;
     removeCompleted: () => void;
@@ -47,4 +47,4 @@ const TodoFilter = ({
         </div>
     </>
 );
-export default TodoFilter as TodoFilterProps;
+export default TodoFilter;

@@ -1,7 +1,7 @@
 import { memo } from "react";
 import { Item, useTodo, useTodoType } from "../../hooks/useTodo";
 
-type TodoItemsProps = (() => any) & {
+type TodoItemsProps = {
     action: useTodoType["action"];
     state: Item["status"];
     toggleStatus: (id: Item["id"], status: Item["status"]) => void;
@@ -65,4 +65,4 @@ const TodoItems = ({
     ));
 };
 
-export default TodoItems as TodoItemsProps;
+export default TodoItems;

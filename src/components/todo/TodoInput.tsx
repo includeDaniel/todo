@@ -1,4 +1,4 @@
-type TodoInputProps = (() => JSX.Element) & {
+type TodoInputProps = {
     input: string;
     handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     handleKeyDown: (e: any) => void;
@@ -28,4 +28,4 @@ const TodoInput = ({
         />
     </div>
 );
-export default TodoInput as TodoInputProps;
+export default TodoInput;
