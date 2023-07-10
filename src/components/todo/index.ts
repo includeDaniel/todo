@@ -1,12 +1,12 @@
 import Todo from "./Todo";
-import TodoFilter from "./TodoFilter";
-import TodoInput from "./TodoInput";
-import TodoItems from "./TodoItems";
-import TodoTitle from "./TodoTitle";
+import Filter from "./Filter";
+import Input from "./Input";
+import Items from "./Items";
+import Title from "./Title";
 
-Todo.Filter = TodoFilter;
-Todo.Input = TodoInput;
-Todo.Items = TodoItems;
-Todo.Title = TodoTitle;
+Todo.Filter = Filter;
+Todo.Input = Input;
+Todo.Items = Items;
+Todo.Title = Title;
 
 export default Todo;

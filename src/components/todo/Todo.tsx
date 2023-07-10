@@ -1,8 +1,8 @@
 import React from "react";
-import TodoFilter from "./TodoFilter";
-import TodoInput from "./TodoInput";
-import TodoItems from "./TodoItems";
-import TodoTitle from "./TodoTitle";
+import TodoFilter from "./Filter";
+import TodoInput from "./Input";
+import TodoItems from "./Items";
+import TodoTitle from "./Title";
 
 type TodoType = (({ children, title }: TodoProps) => JSX.Element) & {
     children: JSX.Element | JSX.Element[];

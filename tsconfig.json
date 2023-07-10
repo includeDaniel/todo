@@ -105,8 +105,8 @@
         ".next/types/**/*.ts",
         "**/*.ts",
         "**/*.tsx",
-        "src/components/todo/TodoFilter.tsx",
-        "src/components/todo/TodoFilter.tsx",
+        "src/components/todo/Filter.tsx",
+        "src/components/todo/Filter.tsx",
         "src/components/todo/Index.js"
     ],
     "exclude": ["node_modules"]

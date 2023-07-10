@@ -1,6 +1,6 @@
 import { Item, useTodoType } from "../../hooks/useTodo";
 
-type TodoItemsProps = {
+type ItemsProps = {
     action: useTodoType["action"];
     state: Item["status"];
     toggleStatus: (id: Item["id"], status: Item["status"]) => void;
@@ -11,13 +11,13 @@ type TodoItemsProps = {
     ) => void;
 };
 
-const TodoItems = ({
+const Items = ({
     action,
     state,
     toggleStatus,
     UpdateList,
     removeItem,
-}: TodoItemsProps) => {
+}: ItemsProps) => {
     return action.filter(state).map((v: any) => (
         <ul
             key={v.i}
@@ -64,4 +64,4 @@ const TodoItems = ({
     ));
 };
 
-export default TodoItems;
+export default Items;

@@ -1,16 +1,16 @@
-type TodoInputProps = {
+type InputProps = {
     input: string;
     handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     handleKeyDown: (e: any) => void;
     toggleAllStatus: () => void;
 };
 
-const TodoInput = ({
+const Input = ({
     input,
     handleChange,
     handleKeyDown,
     toggleAllStatus,
-}: TodoInputProps) => (
+}: InputProps) => (
     <div className="w-full flex items-center justify-center ">
         <button
             className="w-18 h-16 cursor-pointer border-2 border-white-800"
@@ -28,4 +28,4 @@ const TodoInput = ({
         />
     </div>
 );
-export default TodoInput;
+export default Input;

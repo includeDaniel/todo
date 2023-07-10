@@ -1,4 +1,4 @@
-type TodoFilterProps = {
+type FilterProps = {
     length: number;
     hasCompleted: boolean;
     removeCompleted: () => void;
@@ -6,12 +6,12 @@ type TodoFilterProps = {
         React.SetStateAction<"all" | "active" | "completed">
     >;
 };
-const TodoFilter = ({
+const Filter = ({
     length,
     hasCompleted,
     removeCompleted,
     setState,
-}: TodoFilterProps) => (
+}: FilterProps) => (
     <>
         <div className=" text-sm text-[#808080] flex justify-between bg-slate-800 w-full border-2 border-white">
             <div className="pr-10 pl-5 flex items-center justify-center">
@@ -47,4 +47,4 @@ const TodoFilter = ({
         </div>
     </>
 );
-export default TodoFilter;
+export default Filter;
