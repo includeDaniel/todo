@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import TodoFilter from "./TodoFilter";
 import TodoInput from "./TodoInput";
 import TodoItems from "./TodoItems";
