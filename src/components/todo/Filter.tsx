@@ -1,3 +1,5 @@
+import { memo } from "react";
+
 type FilterProps = {
     length: number;
     hasCompleted: boolean;
@@ -47,4 +49,4 @@ const Filter = ({
         </div>
     </>
 );
-export default Filter;
+export default memo(Filter);

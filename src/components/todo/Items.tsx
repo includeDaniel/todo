@@ -1,4 +1,4 @@
-import { Item, useTodoType } from "../../hooks/useTodo";
+import { Item, Todo, useTodoType } from "../../hooks/useTodo";
 
 type ItemsProps = {
     action: useTodoType["action"];

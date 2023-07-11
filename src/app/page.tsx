@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import Todo from "../components/todo";
 import { Item, useTodo } from "../hooks/useTodo";
 
@@ -8,25 +8,28 @@ export default function Home() {
     const [state, setState] = useState<Item["status"]>("all");
     const { todo, action } = useTodo();
 
-    function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInput(e.target.value);
-    }
-    function handleClick() {
+    };
+    const handleClick = () => {
         action.append({
             id: crypto.randomUUID(),
             value: input,
             status: "active",
         });
         setInput("");
-    }
+    };
 
-    function removeItem(item: Item) {
-        action.remove(item);
-    }
+    const removeItem = useCallback(
+        (item: Item) => {
+            action.remove(item);
+        },
+        [todo]
+    );
 
-    function removeCompleted() {
+    const removeCompleted = useCallback(() => {
         action.clearCompleted();
-    }
+    }, [todo]);
 
     const handleKeyDown = (e: any) => {
         if (e.key === "Enter") {
@@ -34,16 +37,19 @@ export default function Home() {
         }
     };
 
-    function toggleStatus(id: Item["id"], status: Item["status"]) {
-        action.toggleStatus(id, status);
-    }
+    const toggleStatus = useCallback(
+        (id: Item["id"], status: Item["status"]) => {
+            action.toggleStatus(id, status);
+        },
+        [todo]
+    );
 
-    function UpdateList(
-        id: Item["id"],
-        e: React.ChangeEvent<HTMLInputElement>
-    ) {
-        action.edit(id, e.currentTarget.innerHTML);
-    }
+    const UpdateList = useCallback(
+        (id: Item["id"], e: React.ChangeEvent<HTMLInputElement>) => {
+            action.edit(id, e.currentTarget.innerHTML);
+        },
+        [todo]
+    );
     const toggleAllStatus = () => {
         action.toggleAllStatus();
     };
