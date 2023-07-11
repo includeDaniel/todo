@@ -1,24 +1,15 @@
-import { Item, Todo, useTodoType } from "../../hooks/useTodo";
+import { useCallback, useState } from "react";
+import { Item, Todo as TodoType, useTodoType } from "../../hooks/useTodo";
+import Todo from "./Todo";
 
 type ItemsProps = {
+    todo: TodoType;
     action: useTodoType["action"];
-    state: Item["status"];
-    toggleStatus: (id: Item["id"], status: Item["status"]) => void;
-    removeItem: (item: Item) => void;
-    UpdateList: (
-        id: Item["id"],
-        e: React.ChangeEvent<HTMLInputElement>
-    ) => void;
 };
 
-const Items = ({
-    action,
-    state,
-    toggleStatus,
-    UpdateList,
-    removeItem,
-}: ItemsProps) => {
-    return action.filter(state).map((v: any) => (
+const Items = ({ todo, action }: ItemsProps) => {
+    const [status, setStatus] = useState<Item["status"]>("all");
+    const itemsList = action.filter(status).map((v: any) => (
         <ul
             key={v.i}
             className=" w-full border-2 border-white"
@@ -30,7 +21,7 @@ const Items = ({
             >
                 <button
                     className="w-16 h-16 border-2 border-white flex justify-center items-center"
-                    onClick={() => toggleStatus(v.id, v.status)}
+                    onClick={() => action.toggleStatus(v.id, v.status)}
                 >
                     <div
                         style={{
@@ -44,7 +35,9 @@ const Items = ({
                 </button>
                 <li
                     contentEditable="true"
-                    onBlur={(e: any) => UpdateList(v.id, e)}
+                    onBlur={(e: any) =>
+                        action.edit(v.id, e.currentTarget.innerHTML)
+                    }
                     style={{
                         textDecoration:
                             v.status === "completed" ? "line-through" : "none",
@@ -55,13 +48,24 @@ const Items = ({
                 </li>
                 <button
                     className="w-16 h-16 text-red-500 border-2 border-white"
-                    onClick={() => removeItem(v)}
+                    onClick={() => action.remove(v)}
                 >
                     x
                 </button>
             </div>
         </ul>
     ));
+    return (
+        <>
+            {itemsList}
+            <Todo.Filter
+                action={action}
+                length={todo.active}
+                hasCompleted={todo.completed > 0}
+                setStatus={setStatus}
+            />
+        </>
+    );
 };
 
 export default Items;

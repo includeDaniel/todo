@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 export type Item = {
     id: string;
@@ -29,14 +29,14 @@ export const useTodo = (
         window.localStorage.setItem("todo", JSON.stringify(todo));
     }, [todo]);
 
-    const append = (newItem: Item) => {
+    const append = useCallback((newItem: Item) => {
         setTodo((prev) => ({
             ...prev,
             items: [...prev.items, newItem],
             active: prev.active + 1,
         }));
-    };
-    const remove = (item: Item) => {
+    }, []);
+    const remove = useCallback((item: Item) => {
         setTodo((prev) => ({
             ...prev,
             items: prev.items.filter((f) => f.id != item.id),
@@ -46,47 +46,56 @@ export const useTodo = (
                     : prev.completed,
             active: item.status === "active" ? prev.active - 1 : prev.active,
         }));
-    };
-    const edit = (id: Item["id"], value: Item["value"]) => {
+    }, []);
+    const edit = useCallback((id: Item["id"], value: Item["value"]) => {
         setTodo((prev) => ({
             ...prev,
             items: prev.items.map((curr) =>
                 curr.id === id ? { ...curr, value } : curr
             ),
         }));
-    };
-    const toggleStatus = (id: Item["id"], status: Item["status"]) => {
-        const nextStatus = status === "active" ? "completed" : "active";
-        setTodo((prev) => ({
-            ...prev,
-            items: prev.items.map((curr) => {
-                if (curr.id != id) {
-                } else {
-                    return {
-                        ...curr,
-                        status: nextStatus,
-                    };
-                }
-                return curr;
-            }),
-            ...(nextStatus === "completed"
-                ? { active: prev.active - 1, completed: prev.completed + 1 }
-                : { active: prev.active + 1, completed: prev.completed - 1 }),
-        }));
-    };
-    const filter = (status: Item["status"]) => {
-        return todo.items.filter((curr) =>
-            status === "all" ? curr : curr.status === status
-        );
-    };
-    const clearCompleted = () => {
+    }, []);
+    const toggleStatus = useCallback(
+        (id: Item["id"], status: Item["status"]) => {
+            const nextStatus = status === "active" ? "completed" : "active";
+            setTodo((prev) => ({
+                ...prev,
+                items: prev.items.map((curr) => {
+                    if (curr.id != id) {
+                    } else {
+                        return {
+                            ...curr,
+                            status: nextStatus,
+                        };
+                    }
+                    return curr;
+                }),
+                ...(nextStatus === "completed"
+                    ? { active: prev.active - 1, completed: prev.completed + 1 }
+                    : {
+                          active: prev.active + 1,
+                          completed: prev.completed - 1,
+                      }),
+            }));
+        },
+        []
+    );
+    const filter = useCallback(
+        (status: Item["status"]) => {
+            return todo.items.filter((curr) =>
+                status === "all" ? curr : curr.status === status
+            );
+        },
+        [todo]
+    );
+    const clearCompleted = useCallback(() => {
         setTodo((prev) => ({
             ...prev,
             items: prev.items.filter((curr) => curr.status !== "completed"),
             completed: 0,
         }));
-    };
-    const toggleAllStatus = () => {
+    }, []);
+    const toggleAllStatus = useCallback(() => {
         setTodo((prev) => {
             const status = prev.items.some((f) => f.status == "active")
                 ? "completed"
@@ -98,7 +107,7 @@ export const useTodo = (
                 completed: status === "completed" ? prev.items.length : 0,
             };
         });
-    };
+    }, []);
     return {
         todo,
         action: {
