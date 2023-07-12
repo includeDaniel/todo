@@ -3,6 +3,7 @@ import TodoFilter from "./Filter";
 import TodoInput from "./Input";
 import TodoItems from "./Items";
 import TodoTitle from "./Title";
+import TodoItem from "./Item";
 
 type TodoType = (({ children, title }: TodoProps) => JSX.Element) & {
     children: JSX.Element | JSX.Element[];
@@ -11,6 +12,7 @@ type TodoType = (({ children, title }: TodoProps) => JSX.Element) & {
     Input: typeof TodoInput;
     Items: typeof TodoItems;
     Title: typeof TodoTitle;
+    Item: typeof TodoItem;
 };
 
 type TodoProps = Pick<TodoType, "children" | "title">;

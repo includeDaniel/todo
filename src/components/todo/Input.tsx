@@ -1,4 +1,4 @@
-import { useState, KeyboardEvent, useCallback } from "react";
+import { useState, KeyboardEvent, useCallback, memo } from "react";
 import { useTodoType } from "../../hooks/useTodo";
 
 type InputProps = {
@@ -52,4 +52,4 @@ const Input = ({ action }: InputProps) => {
         </div>
     );
 };
-export default Input;
+export default memo(Input);

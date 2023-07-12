@@ -36,6 +36,7 @@ export const useTodo = (
             active: prev.active + 1,
         }));
     }, []);
+
     const remove = useCallback((item: Item) => {
         setTodo((prev) => ({
             ...prev,
