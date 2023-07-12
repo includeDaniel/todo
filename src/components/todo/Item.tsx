@@ -1,4 +1,4 @@
-import { FocusEvent } from "react";
+import { FocusEvent, memo } from "react";
 import { Item as ItemType, useTodoType } from "../../hooks/useTodo";
 
 type ItemProps = {
@@ -51,4 +51,4 @@ const Item = ({ toggleStatus, edit, remove, curr }: ItemProps) => {
     );
 };
 
-export default Item;
+export default memo(Item);
