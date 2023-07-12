@@ -103,14 +103,12 @@ export const useTodo = (
     }, []);
     return {
         todo,
-        action: {
-            append,
-            remove,
-            edit,
-            clearCompleted,
-            toggleStatus,
-            toggleAllStatus,
-        },
+        append,
+        remove,
+        edit,
+        clearCompleted,
+        toggleStatus,
+        toggleAllStatus,
     };
 };
 

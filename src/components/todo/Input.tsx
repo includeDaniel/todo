@@ -2,12 +2,12 @@ import { useState, KeyboardEvent, useCallback, memo } from "react";
 import { useTodoType } from "../../hooks/useTodo";
 
 type InputProps = {
-    action: useTodoType["action"];
+    append: useTodoType["append"];
+    toggleAllStatus: useTodoType["toggleAllStatus"];
 };
 
-const Input = ({ action }: InputProps) => {
+const Input = ({ append, toggleAllStatus }: InputProps) => {
     const [input, setInput] = useState("");
-
     const handleChange = useCallback(
         (e: React.ChangeEvent<HTMLInputElement>) => {
             setInput(e.target.value);
@@ -15,29 +15,25 @@ const Input = ({ action }: InputProps) => {
         []
     );
 
-    const append = useCallback(() => {
-        action.append({
-            id: crypto.randomUUID(),
-            value: input,
-            status: "active",
-        });
-        setInput("");
-    }, [action, input]);
-
     const handleKeyDown = useCallback(
         (e: KeyboardEvent<HTMLInputElement>) => {
             if (e.key === "Enter") {
-                append();
+                append({
+                    id: crypto.randomUUID(),
+                    value: input,
+                    status: "active",
+                });
+                setInput("");
             }
         },
-        [append]
+        [input]
     );
 
     return (
         <div className="w-full flex items-center justify-center ">
             <button
                 className="w-18 h-16 cursor-pointer border-2 border-white-800"
-                onClick={() => action.toggleAllStatus()}
+                onClick={() => toggleAllStatus()}
             >
                 *
             </button>

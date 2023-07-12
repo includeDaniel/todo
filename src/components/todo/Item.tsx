@@ -1,12 +1,14 @@
 import { FocusEvent } from "react";
-import { Item, useTodoType } from "../../hooks/useTodo";
+import { Item as ItemType, useTodoType } from "../../hooks/useTodo";
 
 type ItemProps = {
-    action: useTodoType["action"];
-    curr: Item;
+    toggleStatus: useTodoType["toggleStatus"];
+    edit: useTodoType["edit"];
+    remove: useTodoType["remove"];
+    curr: ItemType;
 };
 
-const Item = ({ action, curr }: ItemProps) => {
+const Item = ({ toggleStatus, edit, remove, curr }: ItemProps) => {
     return (
         <li
             key={curr.id}
@@ -14,7 +16,7 @@ const Item = ({ action, curr }: ItemProps) => {
         >
             <button
                 className="w-16 h-16 border-2 border-white flex justify-center items-center"
-                onClick={() => action.toggleStatus(curr.id, curr.status)}
+                onClick={() => toggleStatus(curr.id, curr.status)}
             >
                 <div
                     style={{
@@ -29,7 +31,7 @@ const Item = ({ action, curr }: ItemProps) => {
             <div
                 contentEditable="true"
                 onBlur={(e: FocusEvent<HTMLElement>) =>
-                    action.edit(curr.id, e.currentTarget.innerHTML)
+                    edit(curr.id, e.currentTarget.innerHTML)
                 }
                 style={{
                     textDecoration:
@@ -41,7 +43,7 @@ const Item = ({ action, curr }: ItemProps) => {
             </div>
             <button
                 className="w-16 h-16 text-red-500 border-2 border-white"
-                onClick={() => action.remove(curr)}
+                onClick={() => remove(curr)}
             >
                 x
             </button>

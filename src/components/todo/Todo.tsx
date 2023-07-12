@@ -1,18 +1,18 @@
 import React from "react";
-import TodoFilter from "./Filter";
-import TodoInput from "./Input";
-import TodoItems from "./Items";
-import TodoTitle from "./Title";
-import TodoItem from "./Item";
+import Filter from "./Filter";
+import Input from "./Input";
+import Items from "./Items";
+import Title from "./Title";
+import Item from "./Item";
 
 type TodoType = (({ children, title }: TodoProps) => JSX.Element) & {
     children: JSX.Element | JSX.Element[];
     title?: JSX.Element;
-    Filter: typeof TodoFilter;
-    Input: typeof TodoInput;
-    Items: typeof TodoItems;
-    Title: typeof TodoTitle;
-    Item: typeof TodoItem;
+    Filter: typeof Filter;
+    Input: typeof Input;
+    Items: typeof Items;
+    Title: typeof Title;
+    Item: typeof Item;
 };
 
 type TodoProps = Pick<TodoType, "children" | "title">;

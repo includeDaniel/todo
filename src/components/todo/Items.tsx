@@ -1,19 +1,33 @@
-import { useState, FocusEvent } from "react";
+import { useState } from "react";
 import { Item, Todo as TodoType, useTodoType } from "../../hooks/useTodo";
-import Todo from "./Todo";
+import Todo from "./index";
 
 type ItemsProps = {
     todo: TodoType;
-    action: useTodoType["action"];
+    toggleStatus: useTodoType["toggleStatus"];
+    edit: useTodoType["edit"];
+    remove: useTodoType["remove"];
+    clearCompleted: useTodoType["clearCompleted"];
 };
 
-const Items = ({ todo, action }: ItemsProps) => {
+const Items = ({
+    todo,
+    toggleStatus,
+    edit,
+    remove,
+    clearCompleted,
+}: ItemsProps) => {
     const [status, setStatus] = useState<Item["status"]>("all");
     const itemsList = todo.items.reduce((acc, curr) => {
         if (status === "all" || curr.status === status) {
             return [
                 ...acc,
-                <Todo.Item action={action} curr={curr}></Todo.Item>,
+                <Todo.Item
+                    toggleStatus={toggleStatus}
+                    edit={edit}
+                    remove={remove}
+                    curr={curr}
+                />,
             ];
         }
         return acc;
@@ -27,10 +41,10 @@ const Items = ({ todo, action }: ItemsProps) => {
                 {itemsList}
             </ul>
             <Todo.Filter
-                action={action}
                 length={todo.active}
                 hasCompleted={todo.completed > 0}
                 setStatus={setStatus}
+                clearCompleted={clearCompleted}
             />
         </>
     );
