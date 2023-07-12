@@ -80,14 +80,6 @@ export const useTodo = (
         },
         []
     );
-    const filter = useCallback(
-        (status: Item["status"]) => {
-            return todo.items.filter((curr) =>
-                status === "all" ? curr : curr.status === status
-            );
-        },
-        [todo]
-    );
     const clearCompleted = useCallback(() => {
         setTodo((prev) => ({
             ...prev,
@@ -114,7 +106,6 @@ export const useTodo = (
             append,
             remove,
             edit,
-            filter,
             clearCompleted,
             toggleStatus,
             toggleAllStatus,
