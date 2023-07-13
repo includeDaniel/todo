@@ -38,8 +38,9 @@ const Filter = ({
             </button>
         </div>
         <button
-            className="p-5 text-sm text-zinc-500"
-            style={{ visibility: hasCompleted ? "visible" : "hidden" }}
+            className={`p-5 text-sm text-zinc-500 ${
+                hasCompleted ? "visible" : "invisible"
+            }`}
             onClick={() => clearCompleted()}
         >
             Clear completed
