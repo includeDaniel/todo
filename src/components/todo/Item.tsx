@@ -31,10 +31,11 @@ const Item = ({ toggleStatus, edit, remove, curr }: ItemProps) => {
                 onBlur={(e: FocusEvent<HTMLElement>) =>
                     edit(curr.id, e.currentTarget.innerHTML)
                 }
+                suppressContentEditableWarning={true}
                 className={`${
                     curr.status === "completed"
                         ? "line-through text-gray-500"
-                        : "text-white"
+                        : "text-white no-underline"
                 }`}
             >
                 {curr.value}
