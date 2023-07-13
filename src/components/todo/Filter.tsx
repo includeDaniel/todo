@@ -13,32 +13,32 @@ const Filter = ({
     setStatus,
     clearCompleted,
 }: FilterProps) => (
-    <div className=" text-sm text-[#808080] flex justify-between bg-slate-800 w-full border-2 border-white">
+    <div className=" text-sm text-zinc-500 flex justify-between bg-slate-800 w-full border-2 border-white">
         <div className="pr-10 pl-5 flex items-center justify-center">
             <span>{length} items left</span>
         </div>
         <div>
             <button
-                className="p-5 text-sm text-[#808080]"
+                className="p-5 text-sm text-zinc-500"
                 onClick={() => setStatus("all")}
             >
                 All
             </button>
             <button
-                className="p-5 text-sm text-[#808080]"
+                className="p-5 text-sm text-zinc-500"
                 onClick={() => setStatus("active")}
             >
                 Active
             </button>
             <button
-                className="p-5 text-sm text-[#808080]"
+                className="p-5 text-sm text-zinc-500"
                 onClick={() => setStatus("completed")}
             >
                 Completed
             </button>
         </div>
         <button
-            className="p-5 text-sm text-[#808080]"
+            className="p-5 text-sm text-zinc-500"
             style={{ visibility: hasCompleted ? "visible" : "hidden" }}
             onClick={() => clearCompleted()}
         >

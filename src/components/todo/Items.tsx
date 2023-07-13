@@ -23,6 +23,7 @@ const Items = ({
             return [
                 ...acc,
                 <Todo.Item
+                    key={curr.id}
                     toggleStatus={toggleStatus}
                     edit={edit}
                     remove={remove}
