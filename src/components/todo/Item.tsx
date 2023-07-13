@@ -19,13 +19,11 @@ const Item = ({ toggleStatus, edit, remove, curr }: ItemProps) => {
                 onClick={() => toggleStatus(curr.id, curr.status)}
             >
                 <div
-                    style={{
-                        backgroundColor:
-                            curr.status === "completed"
-                                ? "green"
-                                : "transparent",
-                    }}
-                    className="w-6 h-6 rounded-full border-4 border-green-700"
+                    className={`w-6 h-6 rounded-full border-4 border-green-700 ${
+                        curr.status === "completed"
+                            ? "bg-green-700"
+                            : "bg-transparent"
+                    } `}
                 ></div>
             </button>
             <div
@@ -33,11 +31,11 @@ const Item = ({ toggleStatus, edit, remove, curr }: ItemProps) => {
                 onBlur={(e: FocusEvent<HTMLElement>) =>
                     edit(curr.id, e.currentTarget.innerHTML)
                 }
-                style={{
-                    textDecoration:
-                        curr.status === "completed" ? "line-through" : "none",
-                    color: curr.status === "completed" ? "gray" : "white",
-                }}
+                className={`${
+                    curr.status === "completed"
+                        ? "line-through text-gray-500"
+                        : "text-white"
+                }`}
             >
                 {curr.value}
             </div>
