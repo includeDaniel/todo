@@ -35,10 +35,7 @@ const Items = ({
     }, [] as JSX.Element[]);
     return (
         <>
-            <ul
-                className=" w-full border-2 border-white"
-                style={{ listStyleType: "none" }}
-            >
+            <ul className="w-full border-2 border-white list-none">
                 {itemsList}
             </ul>
             <Todo.Filter
