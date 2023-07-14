@@ -26,7 +26,7 @@ const Input = ({ append, toggleAllStatus }: InputProps) => {
                 setInput("");
             }
         },
-        [input]
+        [input, append]
     );
 
     return (
