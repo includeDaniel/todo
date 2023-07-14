@@ -23,4 +23,4 @@ jobs:
             - name: Install dependencies
               run: yarn
             - name: Check tests
-              run: npm test
+              run: yarn test
