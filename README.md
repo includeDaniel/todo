@@ -12,4 +12,4 @@
 
 Running tests:
 
--   Run `yarn test` to execute the tests and export the reports to `/cover` folder
+-   Run `yarn test` to execute the tests and export the reports to `/coverage` folder
