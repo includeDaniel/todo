@@ -13,3 +13,5 @@ https://github.com/includeDaniel/todo/assets/62966657/e03a1c3c-032b-4c8b-acc6-72
 Running tests:
 
 -   Run `yarn test` to execute the tests and export the reports to `/coverage` folder
+
+Going to production : https://nextjs.org/docs/pages/building-your-application/deploying/production-checklist
