@@ -6,6 +6,8 @@
 
 https://github.com/includeDaniel/todo/assets/62966657/e03a1c3c-032b-4c8b-acc6-72c54760dd38
 
+Running locally:
+
 -   Run `yarn` to install all dependencies
 -   Start the application with `yarn run dev`
 -   Now you can visit [`localhost:3000`](http://localhost:3000) from your browser
