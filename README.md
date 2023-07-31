@@ -14,4 +14,4 @@ Running tests:
 
 -   Run `yarn test` to execute the tests and export the reports to `/coverage` folder
 
-Going to production : https://nextjs.org/docs/pages/building-your-application/deploying/production-checklist
+Ready to run in production? Checkout [going to production](https://nextjs.org/docs/pages/building-your-application/deploying/production-checklist).
