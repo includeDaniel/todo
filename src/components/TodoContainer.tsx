@@ -1,7 +1,7 @@
 "use client";
 
 import { useTodo } from "../hooks/useTodo";
-import Todo from "./Todo";
+import Todo from "./Todo/index";
 
 export const TodoContainer = () => {
     const {
