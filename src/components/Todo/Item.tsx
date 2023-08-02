@@ -15,11 +15,11 @@ const Item = ({ toggleStatus, edit, remove, curr }: ItemProps) => {
             className="tablet:w-full tablet:h-16 tablet:text-base cellphone:text-xs cellphone:h-10  border-2 boreder-white flex items-center justify-between"
         >
             <button
-                className="tablet:w-16 tablet:h-16 cellphone:w-10 cellphone:h-10 border-2 border-white flex justify-center items-center"
+                className="tablet:w-16 tablet:h-16 cellphone:w-12 cellphone:h-10 border-2 border-white flex justify-center items-center"
                 onClick={() => toggleStatus(curr.id, curr.status)}
             >
                 <div
-                    className={`tablet:w-6 tablet:h-6 rounded-full border-4 border-green-700 ${
+                    className={`tablet:w-6 tablet:h-6 cellphone:w-4 cellphone:h-4 rounded-full border-4 border-green-700 ${
                         curr.status === "completed"
                             ? "bg-green-700"
                             : "bg-transparent"
