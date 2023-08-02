@@ -30,15 +30,15 @@ const Input = ({ append, toggleAllStatus }: InputProps) => {
     );
 
     return (
-        <div className="w-full flex items-center justify-center ">
+        <div className="tablet:w-full tablet:h-16 cellphone:w-80 cellphone:h-10 flex items-center justify-center ">
             <button
-                className="w-18 h-16 cursor-pointer border-2 border-white-800"
+                className="tablet:w-18 tablet:h-16 cellphone:w-12 cellphone:h-10 cursor-pointer border-2 border-white-800"
                 onClick={() => toggleAllStatus()}
             >
                 *
             </button>
             <input
-                className="w-full h-16 border-2 border-white text-slate-800 text-2xl"
+                className="tablet:w-full tablet:h-16 cellphone:h-10 cellphone:w-80  border-2 border-white text-slate-800 tablet:text-2xl cellphone:text-lg"
                 type="text"
                 value={input}
                 onChange={handleChange}

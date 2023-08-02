@@ -13,32 +13,32 @@ const Filter = ({
     setStatus,
     clearCompleted,
 }: FilterProps) => (
-    <div className=" text-sm text-zinc-500 flex justify-between bg-slate-800 w-full border-2 border-white">
-        <div className="pr-10 pl-5 flex items-center justify-center">
+    <div className="tablet:w-full cellphone:w-80 h-16 tablet:text-sm cellphone:text-xs text-zinc-500 flex justify-between bg-slate-800 border-2 border-white">
+        <div className="tablet:pr-10 tablet:pl-5 cellphone:pr-1 cellphone:pl-1 flex items-center justify-center">
             <span>{length} items left</span>
         </div>
-        <div>
+        <div className="flex">
             <button
-                className="p-5 text-sm text-zinc-500"
+                className="tablet:p-5 cellphone:pl-2 text-zinc-500"
                 onClick={() => setStatus("all")}
             >
                 All
             </button>
             <button
-                className="p-5 text-sm text-zinc-500"
+                className="tablet:p-5 cellphone:p-2 text-zinc-500"
                 onClick={() => setStatus("active")}
             >
                 Active
             </button>
             <button
-                className="p-5 text-sm text-zinc-500"
+                className="tablet:p-5 cellphone:pr-2 text-zinc-500"
                 onClick={() => setStatus("completed")}
             >
                 Completed
             </button>
         </div>
         <button
-            className={`p-5 text-sm text-zinc-500 ${
+            className={`tablet:p-5 cellphone:p-2 text-zinc-500 ${
                 hasCompleted ? "visible" : "invisible"
             }`}
             onClick={() => clearCompleted()}

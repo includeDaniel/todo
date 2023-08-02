@@ -35,7 +35,7 @@ const Items = ({
     }, [] as JSX.Element[]);
     return (
         <>
-            <ul className="w-full border-2 border-white list-none">
+            <ul className="tablet:w-full cellphone:w-80 border-2 border-white list-none">
                 {itemsList}
             </ul>
             <Todo.Filter

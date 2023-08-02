@@ -12,7 +12,7 @@ const Item = ({ toggleStatus, edit, remove, curr }: ItemProps) => {
     return (
         <li
             key={curr.id}
-            className="w-full h-16 border-2 boreder-white flex items-center justify-between"
+            className="tablet:w-full tablet:h-16 border-2 boreder-white flex items-center justify-between"
         >
             <button
                 className="w-16 h-16 border-2 border-white flex justify-center items-center"
