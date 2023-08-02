@@ -22,7 +22,7 @@ const Filter = ({
                 className="p-5 text-sm text-zinc-500"
                 onClick={() => setStatus("all")}
             >
-                All
+                Al
             </button>
             <button
                 className="p-5 text-sm text-zinc-500"
