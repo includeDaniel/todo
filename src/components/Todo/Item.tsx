@@ -12,14 +12,14 @@ const Item = ({ toggleStatus, edit, remove, curr }: ItemProps) => {
     return (
         <li
             key={curr.id}
-            className="tablet:w-full tablet:h-16 border-2 boreder-white flex items-center justify-between"
+            className="tablet:w-full tablet:h-16 tablet:text-base cellphone:text-xs cellphone:h-10  border-2 boreder-white flex items-center justify-between"
         >
             <button
-                className="w-16 h-16 border-2 border-white flex justify-center items-center"
+                className="tablet:w-16 tablet:h-16 cellphone:w-10 cellphone:h-10 border-2 border-white flex justify-center items-center"
                 onClick={() => toggleStatus(curr.id, curr.status)}
             >
                 <div
-                    className={`w-6 h-6 rounded-full border-4 border-green-700 ${
+                    className={`tablet:w-6 tablet:h-6 rounded-full border-4 border-green-700 ${
                         curr.status === "completed"
                             ? "bg-green-700"
                             : "bg-transparent"
@@ -41,7 +41,7 @@ const Item = ({ toggleStatus, edit, remove, curr }: ItemProps) => {
                 {curr.value}
             </div>
             <button
-                className="w-16 h-16 text-red-500 border-2 border-white"
+                className="tablet:w-16 tablet:h-16 cellphone:w-10 cellphone:h-10 text-red-500 border-2 border-white"
                 onClick={() => remove(curr)}
             >
                 x

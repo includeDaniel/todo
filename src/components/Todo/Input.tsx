@@ -30,7 +30,7 @@ const Input = ({ append, toggleAllStatus }: InputProps) => {
     );
 
     return (
-        <div className="tablet:w-full tablet:h-16 cellphone:w-80 cellphone:h-10 flex items-center justify-center ">
+        <div className="tablet:w-full tablet:h-16 cellphone:w-80 cellphone:h-10  flex items-center justify-center ">
             <button
                 className="tablet:w-18 tablet:h-16 cellphone:w-12 cellphone:h-10 cursor-pointer border-2 border-white-800"
                 onClick={() => toggleAllStatus()}
@@ -38,7 +38,7 @@ const Input = ({ append, toggleAllStatus }: InputProps) => {
                 *
             </button>
             <input
-                className="tablet:w-full tablet:h-16 cellphone:h-10 cellphone:w-80  border-2 border-white text-slate-800 tablet:text-2xl cellphone:text-lg"
+                className="tablet:w-full tablet:h-16 cellphone:h-10 cellphone:w-80  border-2 border-white text-slate-800 tablet:text-2xl cellphone:text-base"
                 type="text"
                 value={input}
                 onChange={handleChange}

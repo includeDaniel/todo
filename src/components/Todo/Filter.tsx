@@ -13,7 +13,7 @@ const Filter = ({
     setStatus,
     clearCompleted,
 }: FilterProps) => (
-    <div className="tablet:w-full cellphone:w-80 h-16 tablet:text-sm cellphone:text-xs text-zinc-500 flex justify-between bg-slate-800 border-2 border-white">
+    <div className="tablet:w-full tablet:h-16 cellphone:h-10 cellphone:w-80  tablet:text-sm cellphone:text-xs text-zinc-500 flex justify-between bg-slate-800 border-2 border-white">
         <div className="tablet:pr-10 tablet:pl-5 cellphone:pr-1 cellphone:pl-1 flex items-center justify-center">
             <span>{length} items left</span>
         </div>
