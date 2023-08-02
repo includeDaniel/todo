@@ -19,7 +19,7 @@ const Filter = ({
         </div>
         <div className="flex">
             <button
-                className="tablet:p-5 cellphone:pl-2 text-zinc-500"
+                className="tablet:p-5 cellphone:pl-3 text-zinc-500"
                 onClick={() => setStatus("all")}
             >
                 All
