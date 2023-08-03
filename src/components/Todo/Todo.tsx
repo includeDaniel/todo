@@ -23,7 +23,7 @@ const Todo = ({ children, title }: TodoProps) => {
             {title}
             <div
                 data-testid="todo"
-                className="w-100 flex items-center justify-center flex-col bg-slate-800 text-white"
+                className="desktop:w-100 flex items-center justify-center flex-col bg-slate-800 text-white"
             >
                 <>{children}</>
             </div>
