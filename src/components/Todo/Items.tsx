@@ -35,15 +35,15 @@ const Items = ({
     }, [] as JSX.Element[]);
     return (
         <>
-            <ul className="tablet:w-full cellphone:w-80 border-2 border-white list-none">
-                {itemsList}
-            </ul>
             <Todo.Filter
                 length={todo.active}
                 hasCompleted={todo.completed > 0}
                 setStatus={setStatus}
                 clearCompleted={clearCompleted}
             />
+            <ul className="tablet:w-full cellphone:w-80 border-2 border-white list-none">
+                {itemsList}
+            </ul>
         </>
     );
 };
